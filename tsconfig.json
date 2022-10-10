@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "ES2017",
+        "outFile": "exmaple3.js",
+        "removeComments": true,
+        "inlineSourceMap": false
+    },
+    "exclude": [
+        "node_modules"
+    ],
+    "files": [
+        "./definitions.d.ts",
+        "./recommendationRuleFunctions.ts",
+        "./recommendations.ts",
+        "./questions.ts",
+        "./webcomponents.ts",
+        "./exmaple3.ts", 
+
+    ]
+}

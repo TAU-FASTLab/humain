@@ -1,0 +1,307 @@
+$elem-width: 80vw;
+$elem-padding: calc((100vw - $elem-width) / 2);
+
+@mixin innerCard {
+    border-radius: 25px;
+    border: 2px groove rgb(143, 143, 143);
+    background-color: var(--main-bg);
+    width: 95%;
+}
+
+@mixin outerCard {
+    background-color: var(--card-color);
+    border-radius: 25px;
+    border: 2px solid var(--dark-fg);
+    box-sizing: border-box;
+    display: block;
+    font-size: 19px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    padding-top: 0.35em;
+    width: $elem-width;
+}
+
+
+* {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    transition: 200ms;
+    color: var(--text-color);
+}
+
+@mixin rootLight {
+    --alert-dark: #c33939;
+    --alert-light: #ffcdcd;
+    --card-color: #E0FFFF;
+    --dark-fg: #009a9d;
+    --logo-filter: none;
+    --main-bg: #ADD8E6;
+    --main-fg: #00CED1;
+    --strong-bg: white;
+    --text-color: #000000;
+}
+
+
+:root {
+
+    @include rootLight()
+}
+
+tab-row {
+    box-sizing: border-box;
+    padding-left: $elem-padding;
+    padding-right: $elem-padding;
+}
+
+#root-light {
+    @include rootLight()
+}
+
+#root-dark {
+    --alert-dark: #c33939;
+    --alert-light: #ffcdcd;
+    --card-color: rgb(91, 91, 104);
+    --dark-fg: rgb(17, 18, 28);
+    --logo-filter: invert(1);
+    --main-bg: rgb(74, 74, 87);
+    --main-fg: rgb(32, 35, 57);
+    --strong-bg: black;
+    --text-color: white;
+}
+
+
+
+.logo {
+    filter: var(--logo-filter);
+    height: 110px;
+    padding: 20px;
+    position: absolute;
+}
+
+input[type=text],
+input[type=password] {
+    border-color: var(--main-fg);
+    background-color: var(--strong-bg);
+}
+
+img,
+.diagram {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#flow-diagram {
+    width: 80%
+}
+
+$dev-diag-margin: 5%;
+
+#dev-diagram {
+    width: 75%;
+    margin-top: $dev-diag-margin;
+    margin-bottom: $dev-diag-margin
+}
+
+recommendation-card {
+    @include outerCard();
+    background-color: var(--main-bg);
+    width: $elem-width * 0.9;
+
+    p {
+        margin-bottom: 5vh;
+    }
+}
+
+.green-text {
+    color: green
+}
+.red-text {
+    color: red
+}
+
+.green-text, .red-text{
+    font-weight: bold
+}
+
+fieldset,
+.login-box,
+.infoCard {
+    @include outerCard();
+}
+
+#start-button-div {
+    width: $elem-width;
+    margin: auto;
+}
+
+legend {
+    border-radius: 25px;
+    background-color: var(--main-fg);
+    color: black;
+    padding: 5px 10px;
+}
+
+/* Style the body */
+body {
+    background-color: var(--main-bg);
+    margin: 0px;
+    height: auto;
+}
+
+/* Header/Logo Title */
+.header {
+    background: var(--main-fg);
+    color: black;
+    font-size: 30px;
+    margin: 0px;
+    padding: 1px;
+    text-align: center;
+    height: auto;
+}
+
+.header h1 {
+    font-size: 65px;
+}
+
+/* Page Content */
+.content {
+    padding: 20px;
+}
+
+p {
+    font-size: 19px;
+}
+
+recommendation-card-group {
+    @include outerCard()
+}
+
+sub-question {
+    @include innerCard()
+}
+
+
+.skill-question,
+group-question {
+    @include outerCard();
+
+    fieldset {
+        @include innerCard();
+    }
+
+}
+
+.recommendation-table {
+    border-spacing: 0px;
+
+    td,
+    th {
+
+        padding: 20px;
+
+        padding-top: 0px;
+        padding-bottom: 5px;
+        border-spacing: 0px;
+        background-color: var(--main-bg);
+
+    }
+
+    td:nth-child(2n-1),
+    th:nth-child(2n-1) {
+        border-right: 1px solid black;
+        // background-color: var(--main-bg);
+    }
+
+
+    th:nth-child(2n-1) {
+
+        color: red;
+    }
+
+    th:nth-child(2n) {
+        color: green;
+    }
+}
+
+#submit-button-base {
+    width: $elem-width;
+    margin: auto;
+}
+
+label {
+    position: relative;
+}
+
+.tooltip {
+    position: absolute;
+    background-color: var(--main-bg);
+    z-index: 10;
+    visibility: hidden;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 25px;
+    border: 2px groove rgb(143, 143, 143);
+    box-shadow: 2px 2px 3px black;
+    top: -60px;
+    width: 30vw;
+}
+
+label:hover .tooltip {
+    visibility: visible;
+}
+
+.hasTooltip {
+    border-bottom: 2px dotted rgba(0, 0, 0, 0.335);
+}
+
+button {
+    font-size: 14pt;
+    background-color: var(--main-bg);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 2px groove rgb(143, 143, 143);
+    box-shadow: 2px 2px 3px black;
+    transition: 200ms;
+}
+
+button:hover {
+    box-shadow: 0px 0px 0px transparent;
+}
+
+alert-box {
+    background-color: var(--alert-light);
+    color: var(--alert-dark);
+    border-color: var(--alert-dark);
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 25px;
+}
+
+.login-box {
+    /* height: 100px; */
+    /* width: 100px; */
+    width: fit-content;
+    padding: 30px;
+    background-color: var(--main-bg);
+}
+
+login-screen {
+    backdrop-filter: blur(10px);
+    background: #0007;
+}
+
+legend {
+    color: var(--text-color);
+}
+
+.tab {
+    // background-color: var(--main-bg);
+    // position:absolute;
+    width: 100vw;
+    top: auto;
+}
