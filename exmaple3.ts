@@ -336,61 +336,6 @@ function makeTooltip(text) {
     return outputElement.outerHTML
 }
 
-function radFunc(choices: Array<ChoiceObject>, type = "radio"): string {
-    return `
-  
-  ${choices.map(choice => ` 
-  <input type="${type}" id="${choice.id}" name="${choice.question}" value="yes">
-     <label for="${choice.id}" class="${choice.tooltip == null ? "" : "hasTooltip"}">${choice.text} ${choice.tooltip == null ? "" : makeTooltip(choice.tooltip)}</label></input></br>
-    `).join('')
-        }
-  
-  `
-
-}
-
-function checkFunc(choices): string {
-    return radFunc(choices, "checkbox")
-}
-
-function groupFunc(): string {
-    let output = ""
-    const placeholder = "(<b>Note</b>: Questions will appear here when you select answers in question 3)";
-    if (question3Checkboxes === undefined) {
-        return placeholder
-    }
-
-    let someAreChecked = false
-    for (let checkbox of question3Checkboxes) {
-        if (checkbox.checked) {
-            someAreChecked = true
-            // add box first tag
-            output += "<div class=\"skill-question\">"
-
-            output += `<h3>${checkbox.labels[0].innerText}</h3></br>`
-            for (let i = 0; i < fetchedQuestions.length; i++) {
-
-                // Loop through all the questions. Only consider 5 and 6
-                // since these are the child questions
-                if (fetchedQuestions[i].id == 5 || fetchedQuestions[i].id == 6) {
-
-                    // Add the template of each child question
-                    output += questionTemplate(fetchedQuestions[i], true, checkbox.id)
-                }
-            }
-            // add box closing tag
-            output += "</div>"
-
-        }
-    }
-    if (someAreChecked == false) {
-        output += placeholder
-    }
-
-
-    return output
-}
-
 function getStoredAnswers(type?: QuestionType): StoredAnswerObject[] {
     let result: StoredAnswerObject[] = [];
     for (let a of storedAnswers) {
