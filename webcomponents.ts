@@ -163,6 +163,10 @@ class CollapseButton extends HTMLElement{
         this.addEventListener("click",(e)=>{
             this.toggle()
         })
+        this.icon.addEventListener("load", (e)=>{
+            this.update()
+
+        })
     }
     toggle(){
         this.setCollapsed(
@@ -183,6 +187,43 @@ class CollapseButton extends HTMLElement{
             this.collapseTarget.style.display = this.defaultDisplay
             this.icon.style.rotate = "0deg"
         }
+        this.updateColors()
+    }
+
+    updateColors(){
+        if (this.icon.contentDocument == undefined){
+            return;
+        }
+        let bodyStyle = window.getComputedStyle(document.body)
+        for (let o of this.icon.contentDocument.querySelectorAll("*") as NodeListOf<SVGPathElement>){
+            if (o.style != undefined){
+                o.style.stroke = bodyStyle.getPropertyValue("--dark-fg")
+            }
+        }
+    }
+
+    changeShape(mode:"expand"|"flatten"){
+        if (this.icon.contentDocument == undefined){
+            return ;
+        }
+        let path = this.icon.contentDocument.querySelector("path") as any as SVGPathElement
+        let d = path.getAttribute("d").split(" ").map((e)=>{
+            return e.split(",")
+        })
+        console.log(d)
+
+        if (mode == "flatten"){
+            d[2][0] = d[1][0]
+        }
+        else {
+            d[2][0] = "120"
+        }
+        const dString = d.map((e) => {
+            return e.join(",");
+        }).join(" ");
+        path.setAttribute("d", dString)
+    
+
     }
 
 

@@ -400,6 +400,9 @@ function setTheme(themeName: theme) {
     rootStyle.style.cssText = theme;
     updateDiagram(flowDiagram)
     updateDiagram(devDiagram)
+    for (let o of document.getElementsByTagName(COLLAPSE_BUTTON_TAG_NAME) as HTMLCollectionOf<CollapseButton>){
+        o.updateColors()
+    }
 }
 
 function getLabel(input:HTMLInputElement){
