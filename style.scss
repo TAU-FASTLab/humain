@@ -134,18 +134,29 @@ fieldset,
 .infoCard {
     @include outerCard();
 }
+.infoCardLegend {
+    border-radius: 25px;
+    background-color: var(--main-fg);
+    color: var(--text-color);
+    padding: 5px 10px;
+    width: fit-content;
+    transform: translate(0, -50%);
+    top: 0px;
+    z-index: 90;
+
+}
+legend {
+    border-radius: 25px;
+    background-color: var(--main-fg);
+    color: var(--text-color);
+    padding: 5px 10px;
+}
 
 #start-button-div {
     width: $elem-width;
     margin: auto;
 }
 
-legend {
-    border-radius: 25px;
-    background-color: var(--main-fg);
-    color: black;
-    padding: 5px 10px;
-}
 
 /* Style the body */
 body {
@@ -291,9 +302,6 @@ login-screen {
     background: #0007;
 }
 
-legend {
-    color: var(--text-color);
-}
 
 .tab {
     // background-color: var(--main-bg);
