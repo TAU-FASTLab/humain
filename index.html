@@ -1,187 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <title>Page Title</title>
-    <meta charset="UTF-8">
-    </meta>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    </meta>
-    <link rel="stylesheet" href="style.css">
-    
-
-</head>
+    <head>
+        <title>Page Title</title>
+        <meta charset="UTF-8">
+        </meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        </meta>
+        <link rel="stylesheet" href="style.css">
 
 
-<body>
-    <img class="logo" src="images/shop4cf-logo.png" alt="The logo of the SHOP4CF project">
-    <div class="header">
-        <h1>HUMAIN</h1>
-        <h3>Human-Machine Interaction Modeling and validation</h3>
-        <tab-row></tab-row>
-    </div>
-    <div class="tab" id="home" tabname="Home">
-        
-        <div>
-            <fieldset>
-                <legend>Introduction</legend>
-                <p>
-                    This tool, the Human-Machine interaction modelling and validation <b>(HUMAIN)</b> tool 
-                    enables designers and developers to validate that
-                    their interfaces cover all those aspects relevant to support an intuitive and personalised interaction between humans
-                    and machines/robots. This tool is especially intended for developers and UI/UX designers in the early stages of front end development.
-                </p>
-                <!-- <img src="images/MicrosoftTeams-image.png" alt="" srcset="" style="width: 60%"> -->
-                <object data="images/HumainDesign2.svg" type="" class="diagram" id="dev-diagram"></object>
-                <p>
+    </head>
+
+
+    <body>
+        <img class="logo" src="images/shop4cf-logo.png" alt="The logo of the SHOP4CF project">
+        <div class="header">
+            <h1>HUMAIN</h1>
+            <h3>Human-Machine Interaction Modeling and validation</h3>
+            <tab-row></tab-row>
+        </div>
+        <div class="tab" id="home" tabname="Home">
+
+            <div>
+                <div class="infoCard">
+                    <div class="infoCardLegend">Introduction</div>
+                    <p>
+                    This tool, the Human-Machine interaction modelling and
+                    validation <b>(HUMAIN)</b> tool enables designers and
+                    developers to validate that their interfaces cover all
+                    those aspects relevant to support an intuitive and
+                    personalised interaction between humans and
+                    machines/robots. This tool is especially intended for
+                    developers and UI/UX designers in the early stages of front
+                    end development. 
+                    </p>
+                    <!-- <img src="images/MicrosoftTeams-image.png" alt="" srcset="" style="width: 60%"> -->
+                    <object data="images/HumainDesign2.svg" type="" class="diagram" id="dev-diagram"></object>
+                    <p>
                     With this tool, you can fill out a simple questionnaire about the UI/UX elements of 
                     a software application you're developing and get feedback automatically.
-                </p>
-                <p>
+                    </p>
+                    <p>
                     Here's how you use the tool:
-                </p>
-                <ol>
-                    <li>Press the start button below</li>
-                    <li>Fill out the questionnaire that appears</li>
-                    <li>Press the "submit" button below the bottom of the questionnaire. 
-                        Recommendations should appear shortly</li>
-                </ol>
-            </fieldset>
-        </div>
-        
-        <div id ="start-button-div">
-            <p>Start the questionnaire by pressing the <strong>start</strong> button below.</p>
+                    </p>
+                    <ol>
+                        <li>Press the start button below</li>
+                        <li>Fill out the questionnaire that appears</li>
+                        <li>Press the "submit" button below the bottom of the
+                            questionnaire. Recommendations should appear
+                            shortly</li>
+                    </ol>
+                </div>
+            </div>
 
-            <button onclick="showQuestions()">Start</button>
-        </div>
-        </p>
-        <div id="app">
+            <div id ="start-button-div">
+                <p>Start the questionnaire by pressing the
+                <strong>start</strong> button below.</p>
 
-        </div>
-    </div>
-    <div class="tab" id="about" tabname="About">
+                <button onclick="showQuestions()">Start</button>
+            </div>
+            </p>
+            <div id="app">
 
-        <div>
-            <fieldset>
-                <legend>About the tool</legend>
-                <p>
-                    This tool was collaboratively developed between TECNALIA research center and Tampere University under the research initiatives
-                    of the <a href="https://shop4cf.eu/">SHOP4CF</a> European project.
-                </p>
-            </fieldset>
+            </div>
         </div>
-        <div>
-            <fieldset>
-                <legend>Scope</legend>
-                <p>
-                    The Human-Machine interaction modelling and validation (HUMAIN) tool enables designers and
-                    developers to
-                    validate that
-                    their interfaces cover all those aspects relevant to support an intuitive and personalised
-                    interaction
-                    between humans
-                    and machines/robots.
-                </p>
-                <p>
-        
-                    Through a set of questions dealing with user experience (UX) in human-machine interactions (HMI)
-                    with
-                    special focus on
-                    the end-users, this tools provides a set of recommendations (based on interaction patterns and
-                    design
-                    guidelines) that
-                    designers and developers should implement in their interfaces to ensure usability, accessibility and
-                    UX
-                    aspects.
-                </p>
-                <p>
-                    The questions cover relevant aspects about the human-machine interactions, such as the type of
-                    devices
-                    to
-                    be used
-                    (e.g. tablet, PC), the type of technology (e.g. Augmented Reality, Web) and the target user profile.
-        
-                    If you want to use HUMAIN tool, you can press the start button below.
-                </p>
-            </fieldset>
-        </div>
-        <div>
-            <fieldset>
-                <legend>Flow of information</legend>
-                <p>The following diagram provides an overview on the different types of information provided by the
+        <div class="tab" id="about" tabname="About">
+
+            <div>
+                <div class="infoCard">
+                    <div class="infoCardLegend">About the tool</div>
+                    <p>
+                    This tool was collaboratively developed between TECNALIA
+                    research center and Tampere University under the research
+                    initiatives of the <a href="https://shop4cf.eu/">SHOP4CF</a> European project.
+                    </p>
+                </div>
+            </div>
+            <div>
+                <div class="infoCard">
+                    <div class="infoCardLegend">Scope</div>
+                    <p>
+                    The Human-Machine interaction modelling and validation
+                    (HUMAIN) tool enables designers and developers to validate
+                    that their interfaces cover all those aspects relevant to
+                    support an intuitive and personalised interaction between
+                    humans and machines/robots.
+                    </p>
+                    <p>
+
+                    Through a set of questions dealing with user experience
+                    (UX) in human-machine interactions (HMI) with special focus
+                    on the end-users, this tools provides a set of
+                    recommendations (based on interaction patterns and design
+                    guidelines) that designers and developers should implement
+                    in their interfaces to ensure usability, accessibility and
+                    UX aspects.
+                    </p>
+                    <p>
+                    The questions cover relevant aspects about the
+                    human-machine interactions, such as the type of devices to
+                    be used (e.g. tablet, PC), the type of technology (e.g.
+                    Augmented Reality, Web) and the target user profile. If you
+                    want to use HUMAIN tool, you can press the start button
+                    below.
+                    </p>
+                </div>
+            </div>
+            <div>
+                <div class="infoCard">
+                    <div class="infoCardLegend">Flow of information</div>
+                    <p>The following diagram provides an overview on the different types of information provided by the
                     user.</p>
-                <!-- <img src="images/humainFlow8.png" width="1000" height="400" 
-                    alt="Diagram describing the functionality of the HUMAIN tool. the text in the diagram reads as follows:
-                    Input:
-                    HMI classification:
-                    - User 
-                    - technology 
-                    - device
-                    User profile:
-                    - Digital skills
-                    - experience
-                    - Demographic info
-                    
-                    Output:
-                    Interaction patterns and design guidelines"> -->
-                <object data="images/humainFlow.svg" type="" style="width: 80%;" id="flow-diagram" class="diagram"></object>
-            </fieldset>
+                    <!-- <img src="images/humainFlow8.png" width="1000" height="400" 
+                        alt="Diagram describing the functionality of the HUMAIN tool. the text in the diagram reads as follows:
+                        Input:
+                        HMI classification:
+                        - User 
+                        - technology 
+                        - device
+                        User profile:
+                        - Digital skills
+                        - experience
+                        - Demographic info
+
+                        Output:
+                        Interaction patterns and design guidelines"> -->
+                        <object data="images/humainFlow.svg" type="" style="width: 80%;" id="flow-diagram" class="diagram"></object>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="tab" id="contact" tabname="Contact Info">
-        <div>
-            <fieldset>
-                <legend>Contact info</legend>
-                <p>
+        <div class="tab" id="contact" tabname="Contact Info">
+            <div>
+                <div class="infoCard">
+                    <div class="infoCardLegend">Contact info</div>
+                    <p>
                     <h4>FAST-Lab, Future Automation Systems & Technologies Laboratory</h4>
                     Contact persons:
                     <ul>
                         <li>Visa Muhonen <ul>
-                            <li>email: visa.muhonen@tuni.fi</li>
-                        </ul></li>
+                                <li>email: visa.muhonen@tuni.fi</li>
+                            </ul></li>
                     </ul>
-                </p>
-            </fieldset>
+                    </p>
+                </div>
+            </div>
         </div>
-    </div>
-    <!-- <div class="tab" id="test">
-        <fieldset>
-
-        </fieldset>
-    </div> -->
-
-    <div class="tab" tabname="Recommendations" id="recommendation-tab">
-        <fieldset>
-            <legend>
-                About this tab
-            </legend>
-            <p>
-                Below, you will see recommendations for your application based on your answers to the questionnaire. The feedback is
-                broken into sections based on the
-                categories of the different UI/UX aspects. Feel
-                free to go back to the home page to
-                double-check your answers if you feel the need to do so.
-            </p>
-            <p>
-                Simply click on the arrows next to each section's title to open them. The <span class="red-text">"minimum"</span> recommendation 
-                means the basic goal your software should achieve regarding the relevant aspect, while the <span class="green-text">"maximum"</span> recommendation is more ideal.
-            </p>
-            <button id = "generate-report-button">
-                Generate Report
-            </button>
-        </fieldset>
-        <div id="recommendation-area">
-            <!-- Placeholder text to be replaced by recommendations -->
+        <!-- <div class="tab" id="test">
             <fieldset>
-                <p>
-                Please fill out the questionnaire and click "submit" before entering this tab.
-                </p>
-            </fieldset>
-        </div>
-    </div>
 
-    <script src="exmaple3.js">
-    </script>
-</body>
+            </fieldset>
+            </div> -->
+
+            <div class="tab" tabname="Recommendations" id="recommendation-tab">
+                <div class="infoCard">
+                    <div class="infoCardLegend">
+                        About this tab
+                    </div>
+                    <p>
+                    Below, you will see recommendations for your application based
+                    on your answers to the questionnaire. The feedback is broken
+                    into sections based on the categories of the different UI/UX
+                    aspects. Feel free to go back to the home page to double-check
+                    your answers if you feel the need to do so.
+                    </p>
+                    <p>
+                    Simply click on the arrows next to each section's title to open
+                    them. The <span class="red-text">"minimum"</span>
+                    recommendation means the basic goal your software should
+                    achieve regarding the relevant aspect, while the <span
+                                                                             class="green-text">"maximum"</span> recommendation is more ideal.
+                    </p>
+                    <button id = "generate-report-button">
+                        Generate Report
+                    </button>
+                </div>
+                <div id="recommendation-area">
+                    <!-- Placeholder text to be replaced by recommendations -->
+                    <div class="infoCard">
+                        <p>
+                        Please fill out the questionnaire and click "submit" before entering this tab.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <script src="exmaple3.js">
+            </script>
+    </body>
 
 </html>
