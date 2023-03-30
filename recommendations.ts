@@ -25,6 +25,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "rule": navigationOptionYESRule,
         "group_id":RecommendationGroupID.navigation,
         "description":"Accessibility in navigation relates to whether a navigation menu/method is implemented, its visiblity, and how the users can access them throughout different UI screens.",      
+        "reason": "You chose \"yes\" for navigation"
     },
     {
         "id": 2,
@@ -34,7 +35,8 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "rule": navigationOptionYESRule,
         "group_id":RecommendationGroupID.navigation,
-        "description":"Navigation levels relate to the function encompassed in different UI levels and how those levels are designed, which require the user to proceed to those level (e.g., selecting desired tab and clicking) for accessing the functionality. "
+        "description":"Navigation levels relate to the function encompassed in different UI levels and how those levels are designed, which require the user to proceed to those level (e.g., selecting desired tab and clicking) for accessing the functionality. ",
+        "reason": "You chose \"yes\" for navigation"
     },
     {
         "id": 3,
@@ -43,9 +45,10 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "Home menu should always be available and visible from every screen",
         "extra_feedback": null,
         "rule": navigationOptionYESRule,
-        "min_rule":()=>{return !seniorsConsideredRule()},
+        "min_rule":NOTseniorsConsideredRule,
         "group_id":RecommendationGroupID.navigation,
-        "description":"Home menu availability relates to the availabiliy of a home menu and its visisbility throughout different UI screens."
+        "description":"Home menu availability relates to the availabiliy of a home menu and its visisbility throughout different UI screens.",
+        "reason": "You chose \"yes\" for navigation"
     },
     {
         "id": 4,
@@ -55,7 +58,8 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "rule": navigationOptionYESRule,
         "group_id":RecommendationGroupID.navigation,
-        "description":"In UIs with multiple navigation levels, the back option relates to whether the users have the possibility to select the back button to go to the previous sections."
+        "description":"In UIs with multiple navigation levels, the back option relates to whether the users have the possibility to select the back button to go to the previous sections.",
+        "reason": "You chose \"yes\" for navigation"
     },
     {
         "id": 5,
@@ -65,7 +69,8 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "rule": navigationOptionYESRule,
         "group_id":RecommendationGroupID.navigation,
-        "description":"In UIs with multiple navigation levels, the exit option relates to whether the users have the possibility to select the exit button to close the current section."
+        "description":"In UIs with multiple navigation levels, the exit option relates to whether the users have the possibility to select the exit button to close the current section.",
+        "reason": "You chose \"yes\" for navigation"
     },
     {
         "id": 6,
@@ -74,7 +79,8 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "Every screen should be clearly identified by a descriptive, unique and unambiguous title",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.visualAspects,
-        "description":"Screen identification relates to the identification of each screen and how the identifiers are formatted."
+        "description":"Screen identification relates to the identification of each screen and how the identifiers are formatted.",
+        "reason": ""
     },
     {
         "id": 7,
@@ -83,7 +89,8 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "The UI should have personalized aesthetics (icons, images) and aligned with the component objective",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.visualAspects,
-        "description":"Aesthetics relate to whether the UI elements are designed after or inspired by any particular objectives."
+        "description":"Aesthetics relate to whether the UI elements are designed after or inspired by any particular objectives.",
+        "reason": ""
     },
     {
         "id": 8,
@@ -91,9 +98,10 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "min_value": "Some functionalities (e.g., transitions between windows) can use the same HMI element across the component",
         "max_value": "A functionality should always use the same HMI element for user's interaction across the component",
         "extra_feedback": null,
-        "rule": ()=>{return !apiCheckedRule()},
+        "rule": apiNOTRule,
         "group_id":RecommendationGroupID.visualAspects,
-        "description": "This issue assesses if HMI elements with the same objective are used always in the same way and have similar aesthetics."
+        "description": "This issue assesses if HMI elements with the same objective are used always in the same way and have similar aesthetics.",
+        "reason": "You did NOT choose API in question 1"
     },
     {
         "id": 9,
@@ -102,7 +110,8 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "Information should be shown in the same way across all the screens",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.visualAspects,
-        "description":"Information shown relates to how information is presented to the users accross different UI screens."
+        "description":"Information shown relates to how information is presented to the users accross different UI screens.",
+        "reason": ""
     },
     {
         "id": 10,
@@ -111,7 +120,8 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "The text should be legible with an adequate size, line spacing and rich text features.",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.visualAspects,
-        "description":"Font relates to how the text has been positioned and formatted in the UI."
+        "description":"Font relates to how the text has been positioned and formatted in the UI.",
+        "reason": ""
     },
     {
         "id": 11,
@@ -120,10 +130,11 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "Tooltips should be available for all interactable HMI elements.",
         "extra_feedback": null,
         // "max_rule":basicSkillsAndLowExperienceRule,
-        "min_rule": function(){return !basicSkillsAndLowExperienceRule()},
-        "rule": function(){return !apiCheckedRule()},
+        "min_rule": NOTbasicSkillsAndLowExperienceRule,
+        "rule": apiNOTRule,
         "group_id":RecommendationGroupID.visualAspects,
-        "description":"Tooltips relate to whether the UI provides any additional information to the user using tooltips."
+        "description":"Tooltips relate to whether the UI provides any additional information to the user using tooltips.",
+        "reason": "You did NOT choose API in question 1"
     },
     {
         "id": 12,
@@ -132,7 +143,8 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "The information and HMI elements should be logically grouped including a descriptive title.",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.visualAspects,
-        "description":"Info groups relate to how information and HMI elements are grouped."
+        "description":"Info groups relate to how information and HMI elements are grouped.",
+        "reason": ""
     },
     {
         "id": 13,
@@ -141,7 +153,8 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "The UI should offer universal and intuitive icons",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.visualAspects,
-        "description":"Pictorical information in elements relates to how the UI shows textual and visual information."
+        "description":"Pictorical information in elements relates to how the UI shows textual and visual information.",
+        "reason": ""
     },
     {
         "id": 14,
@@ -151,7 +164,8 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "rule":apiCheckedRule,
         "group_id":RecommendationGroupID.feedbackMessages,
-        "description": "Information messages provide an informative description about an event."
+        "description": "Information messages provide an informative description about an event.",
+        "reason": ""
     },
     {
         "id": 15,
@@ -218,7 +232,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "The UI should enable the user to introduce numeric values via keyboard/numeric pads.",
         "extra_feedback": null,
         "rule": interactionIsBidirectionalRule,
-        "min_rule": ()=>{return !seniorsConsideredRule()},
+        "min_rule": NOTseniorsConsideredRule,
         "group_id":RecommendationGroupID.inputAndInteraction,
         "description":"Exact numeric values relates to how the user can introduce numeric values to the system."
     },
@@ -259,7 +273,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "The menu should be customizable per user.",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.profiling,
-        "rule":()=>{return !apiCheckedRule()},
+        "rule":apiNOTRule,
         "description":"Customization relates to whether the menu is customizable and how configuration is shared between users."
     },
     {
@@ -269,7 +283,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "The component should support more than one language, which can be changed in every screen.",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.profiling,
-        "rule":()=>{return !apiCheckedRule()},
+        "rule":apiNOTRule,
         "description":"Languages relates to the available languages for the user to choose from and how they are configured."
     },
     {

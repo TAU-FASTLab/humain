@@ -279,8 +279,8 @@ class RecommendationCardGroup extends HTMLElement{
         this.cards = []
 
         for (let recommendation of RECOMMENDATIONS) {
-            let rule = recommendation.rule == undefined? ()=>{ return !apiCheckedRule()}: recommendation.rule
-            if (rule() && this.groupID == recommendation.group_id) {
+            let rule: ()=>recommendationRuleResult = recommendation.rule == undefined? apiNOTRule: recommendation.rule
+            if (rule().is_true && this.groupID == recommendation.group_id) {
                 let newCard = new RecommendationCard(recommendation);
                 console.log(newCard)
                 console.log(recommendation)
@@ -309,9 +309,10 @@ class RecommendationCard extends HTMLElement {
     headline: HTMLElement;
     table: HTMLTableElement;
     headlineBase:HTMLElement;
-    tableBase:HTMLElement
+    tableBase:HTMLElement;
     headlineDivider:HTMLElement;
-    descriptionBox:HTMLElement
+    descriptionBox:HTMLElement;
+    reasonLine:HTMLElement;
 
     constructor(recommendation: RecommendationObject) {
         super();
@@ -340,6 +341,14 @@ class RecommendationCard extends HTMLElement {
 
         if (this.recommendation.description != undefined){
             this.appendChild(this.descriptionBox)
+        }
+
+        this.reasonLine = document.createElement("p")
+        let reason = this.getReason();
+        if (reason != undefined && reason != ""){
+            this.reasonLine.innerText += "REASON: ";
+            this.reasonLine.innerText += reason;
+            this.appendChild(this.reasonLine)
         }
         
         // Create the table base
@@ -407,6 +416,10 @@ class RecommendationCard extends HTMLElement {
         return this.maxRuleApplies() ? this.recommendation["max_value"] : NOT_APPLICABLE_TEXT;
     }
 
+    getReason(): string {
+        return this.recommendation.rule == undefined ? "" : this.recommendation.rule().reason
+    }
+
     moveToSide() {
         let rect = this.getBoundingClientRect();
         this.style.left = `${rect.width}px`
@@ -450,10 +463,10 @@ class RecommendationCard extends HTMLElement {
     }
 
     maxRuleApplies():boolean{
-        return this.recommendation.max_rule == undefined || this.recommendation.max_rule() == true
+        return this.recommendation.max_rule == undefined || this.recommendation.max_rule().is_true == true
     }
     minRuleApplies(): boolean {
-        return this.recommendation.min_rule == undefined || this.recommendation.min_rule() == true
+        return this.recommendation.min_rule == undefined || this.recommendation.min_rule().is_true == true
     }
 
     generateReport(indentLevel:number = 0){

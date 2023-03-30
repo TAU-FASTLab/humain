@@ -18,18 +18,41 @@ function choiceCheckedAND(choiceIDs: number[]): boolean {
     return true
 }
 
-function apiCheckedRule(): boolean {
-    return choiceCheckedOR([19])
+function apiCheckedRule(): recommendationRuleResult {
+    let result: recommendationRuleResult = {
+        is_true: choiceCheckedOR([19]),
+        reason: "You chose API in question 1"
+    }
+    return result
+}
+function apiNOTRule(): recommendationRuleResult {
+    let result: recommendationRuleResult = {
+        is_true: !choiceCheckedOR([19]),
+        reason: "You did NOT choose API in question 1"
+    }
+    return result
 }
 
-function ARVRCheckedRule(): boolean {
-    return choiceCheckedOR([21, 20]) && !apiCheckedRule()
+function ARVRCheckedRule(): recommendationRuleResult {
+    let result: recommendationRuleResult = {
+        is_true: choiceCheckedOR([21, 20]) && !apiCheckedRule().is_true,
+        reason: "You chose AR or VR in question 1" 
+    }
+    return result
 }
 
-function basicSkillsAndLowExperienceRule():boolean{
-    return choiceCheckedAND([34,37]) && !apiCheckedRule()
+function basicSkillsAndLowExperienceRule():recommendationRuleResult{
+    return {
+        is_true: choiceCheckedAND([34,37]) && !apiCheckedRule().is_true,
+        reason: "You chose \"Basic skills\" and \"Low experience\""
+    }
 }
-
+function NOTbasicSkillsAndLowExperienceRule():recommendationRuleResult{
+    return {
+        is_true: !basicSkillsAndLowExperienceRule().is_true,
+        reason: "You did NOT choose \"Basic skills\" and \"Low experience\""
+    }
+}
 // function returnFalse(){
 //     return false;
 // }
@@ -38,22 +61,47 @@ function basicSkillsAndLowExperienceRule():boolean{
 //     return true;
 // }
 
-function accessibilityConsideredRule(){
-    return true
+function accessibilityConsideredRule(): recommendationRuleResult{
+    return {
+        is_true: true,
+        reason:""
+    }
 }
 
-function seniorsConsideredRule(){
-    return choiceCheckedAND([40])
+function seniorsConsideredRule():recommendationRuleResult{
+
+    return {
+        is_true: choiceCheckedAND([40]),
+        reason: "You checked that users over the age of 60 are expected"
+    }
+}
+function NOTseniorsConsideredRule():recommendationRuleResult{
+    return {
+        is_true: !seniorsConsideredRule().is_true,
+        reason: "You did NOT check that users over the age of 60 would be expected"
+    }
 }
 
-function navigationOptionYESRule(){
-    return choiceCheckedAND([43]) && !apiCheckedRule()
+function navigationOptionYESRule(): recommendationRuleResult{
+    let result:recommendationRuleResult = {
+        is_true:choiceCheckedAND([43]) && !apiCheckedRule().is_true,
+        reason: "You chose \"yes\" for navigation"
+    }
+    return result
 }
 
-function interactionIsBidirectionalRule(){
-    return choiceCheckedAND([44]) && !apiCheckedRule()
+function interactionIsBidirectionalRule(): recommendationRuleResult{
+    let result = {
+        is_true:choiceCheckedAND([44]) && !apiCheckedRule().is_true,
+        reason: "You chose \"Yes\" for bidirectional interaction"
+    }
+    return result
 }
 
-function loginRequiredRule(){
-    return choiceCheckedAND([45]) && !apiCheckedRule()
+function loginRequiredRule(): recommendationRuleResult{
+    let result:recommendationRuleResult = {
+        is_true: choiceCheckedAND([45]) && !apiCheckedRule().is_true,
+        reason: "You chose \"Yes\" for login required"
+    }
+    return result
 }

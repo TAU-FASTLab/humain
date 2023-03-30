@@ -83,11 +83,15 @@ interface RecommendationObject {
     description?:string
     extra_feedback?: string
     answer_text?: string
-    rule?:Function 
-    min_rule?: Function
-    max_rule?: Function
+    rule?:() => recommendationRuleResult 
+    min_rule?: () => recommendationRuleResult
+    max_rule?: () => recommendationRuleResult
     group_id?:RecommendationGroupID
+    reason?: string
 }
 
-
+interface recommendationRuleResult {
+    is_true: boolean
+    reason: string
+}
 

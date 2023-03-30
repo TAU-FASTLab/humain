@@ -56,7 +56,7 @@ const QUESTIONS:QuestionObject[] = [
         "last_update": "2022-09-20T09:48:37.350960Z",
         "type": "RADIO",
         "nested_type": "NONE",
-        "text": "Which technology is used by user(s) for the interaction? (you can only select one)",
+        "text": "Which technology is used by the user(s) for interaction? (you can only select one)",
         "order": 1,
         "question_answer_dependency": null,
         "parent_group_question": null
@@ -276,7 +276,8 @@ const QUESTIONS:QuestionObject[] = [
         "last_update": "2022-03-02T10:19:07.272460Z",
         "type": "GROUP",
         "nested_type": "NONE",
-        "text": "For each of the target users selected in Step 3, please provide the following info:",
+        "text":
+            "For each of the target users selected in Step 3, please provide the following info:",
         "order": 4,
         "question_answer_dependency": 3,
         "parent_group_question": null
@@ -292,14 +293,7 @@ const QUESTIONS:QuestionObject[] = [
                 "tooltip": null,
                 "question": 7
             },
-            // {
-            //     "id": 41,
-            //     "creation": "2022-03-02T10:42:15.905122Z",
-            //     "last_update": "2022-03-02T10:42:15.905153Z",
-            //     "text": "I want to have accessibility aspects in mind.",
-            //     "tooltip": "Having in mind accessibility aspects refers to design an inclusive solution, where not only target users are considered, but also users with disabilities, and even users from different cultures and countries.",
-            //     "question": 7
-            // },
+           
             {
                 "id": 42,
                 "creation": "2022-03-02T10:42:30.838861Z",
@@ -307,14 +301,22 @@ const QUESTIONS:QuestionObject[] = [
                 "text": "Users can select different languages.",
                 "tooltip": null,
                 "question": 7
-            }
+            } // {
+            //     "id": 41,
+            //     "creation": "2022-03-02T10:42:15.905122Z",
+            //     "last_update": "2022-03-02T10:42:15.905153Z",
+            //     "text": "I want to have accessibility aspects in mind.",
+            //     "tooltip": "Having in mind accessibility aspects refers to design an inclusive solution, where not only target users are considered, but also users with disabilities, and even users from different cultures and countries.",
+            //     "question": 7
+            // },
         ],
         "child_questions": [],
         "creation": "2022-03-02T10:28:21.537654Z",
         "last_update": "2022-03-02T10:28:21.537697Z",
         "type": "CHECKBOX",
         "nested_type": "NONE",
-        "text": "At general level, please select the options that you want to consider from UX perspective",
+        "text":
+            "At general level, please select the options that you want to consider from UX perspective",
         "order": 7,
         "question_answer_dependency": null,
         "parent_group_question": null
@@ -344,7 +346,8 @@ const QUESTIONS:QuestionObject[] = [
         "last_update": "2022-03-02T10:46:38.387737Z",
         "type": "RADIO",
         "nested_type": "NONE",
-        "text": "Does it provide a navigation system to move through different interface elements in order to interact with a it?",
+        "text":
+            "Is there a navigation system to move through different interface elements?",
         "order": 8,
         "question_answer_dependency": null,
         "parent_group_question": null
@@ -374,7 +377,8 @@ const QUESTIONS:QuestionObject[] = [
         "last_update": "2022-03-02T10:46:52.303244Z",
         "type": "RADIO",
         "nested_type": "NONE",
-        "text": "Is the interaction bidirectional? This means that the user can introduce information (e.g. text, number) in your application /service /product.",
+        "text":
+            "Is the interaction bidirectional, meaning that the user can introduce information (e.g. text, number) in your application/service/product?",
         "order": 9,
         "question_answer_dependency": null,
         "parent_group_question": null
@@ -420,7 +424,7 @@ const QUESTIONS:QuestionObject[] = [
         "last_update": "2022-03-02T10:47:08.671706Z",
         "type": "CHECKBOX",
         "nested_type": "NONE",
-        "text": "Which type of interaction is enabled for users?",
+        "text": "Which types of interaction are available for users?",
         "order": 10,
         "question_answer_dependency": null,
         "parent_group_question": null
@@ -450,7 +454,7 @@ const QUESTIONS:QuestionObject[] = [
         "last_update": "2022-03-02T10:47:26.598594Z",
         "type": "RADIO",
         "nested_type": "NONE",
-        "text": "Does it require to use login for accessing your application /service /product?",
+        "text": "Does your application/service/product require login?",
         "order": 11,
         "question_answer_dependency": null,
         "parent_group_question": null
