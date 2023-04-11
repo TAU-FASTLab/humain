@@ -71,7 +71,8 @@ interface GroupAnswerObject {
 
 }
 
-type SendableAnswerObject = GroupAnswerObject & CheckboxAnswerObject & NestedAnswerObject
+type SendableAnswerObject = GroupAnswerObject & CheckboxAnswerObject &
+    NestedAnswerObject
 
 interface RecommendationObject {
     id: number

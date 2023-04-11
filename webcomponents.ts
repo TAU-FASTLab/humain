@@ -424,11 +424,11 @@ class RecommendationCard extends HTMLElement {
         let rect = this.getBoundingClientRect();
         this.style.left = `${rect.width}px`
     }
-    slideBack(duration) {
+    slideBack(duration:number) {
         this.style.transitionDuration = `${duration}ms`
         this.style.left = "0px"
     }
-    slideBackAll(duration) {
+    slideBackAll(duration:number) {
         this.slideBack(duration);
         let nextCard = this.nextElementSibling as RecommendationCard
         if (nextCard != undefined && nextCard.tagName == this.tagName) {
@@ -463,10 +463,12 @@ class RecommendationCard extends HTMLElement {
     }
 
     maxRuleApplies():boolean{
-        return this.recommendation.max_rule == undefined || this.recommendation.max_rule().is_true == true
+        return this.recommendation.max_rule == undefined ||
+            this.recommendation.max_rule().is_true == true
     }
     minRuleApplies(): boolean {
-        return this.recommendation.min_rule == undefined || this.recommendation.min_rule().is_true == true
+        return this.recommendation.min_rule == undefined ||
+            this.recommendation.min_rule().is_true == true
     }
 
     generateReport(indentLevel:number = 0){
@@ -474,13 +476,18 @@ class RecommendationCard extends HTMLElement {
         indent();
         result += "Recommendation: "+ this.recommendation.attribute
         newline();
-        result += this.recommendation.description == undefined?"":REPORT_TAB_STRING.repeat(indentLevel+1)+"description: "+this.recommendation.description
+        result += this.recommendation.description == undefined? "" : 
+            REPORT_TAB_STRING.repeat(indentLevel+1)+"description: " + 
+            this.recommendation.description
         newline();
         indent(1);
         result+= "minimum: "+this.getMinValue()
         newline()
         indent(1)
         result+= "maximum: "+this.getMaxValue()
+        newline()
+        indent(1)
+        result += "reason: "+ this.getReason()
         return result
 
         function indent(i=0) {
@@ -502,7 +509,8 @@ class AlertBox extends HTMLElement {
         this.style.height = "0px"
         this.style.bottom = "0px"
         this.style.overflowY = "hidden"
-        this.paragraph = document.createElement("p") as any as HTMLParagraphElement
+        this.paragraph = document.createElement("p") as any as 
+            HTMLParagraphElement
         this.paragraph.style.color = "var(--alert-dark)"
         this.appendChild(this.paragraph)
         this.paragraph.innerText = text
@@ -518,10 +526,12 @@ class AlertBox extends HTMLElement {
 
 
         // Set height position
-        this.style.left = `${this.parentElement.getBoundingClientRect().width + 5}px`
+        this.style.left = 
+            `${this.parentElement.getBoundingClientRect().width + 5}px`
         this.style.height = "auto"
         this.style.bottom = ""
-        this.style.top = `-${this.getBoundingClientRect().height * (3 / 4)}px`
+        this.style.top = 
+            `-${this.getBoundingClientRect().height * (3 / 4)}px`
 
         // console.log("show");
         // console.log(this)

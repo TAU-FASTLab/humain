@@ -14,6 +14,7 @@ const MAIN_QUESTION_DIV_CLASS = "mainQuestionDiv";
 const DEP_CHOICE_ATTNAME = "dep-choice";
 const TEST_MODE = true
 
+// Tag names for all of the custom web components
 const ALERT_BOX_TAG_NAME = "alert-box";
 const COLLAPSE_BUTTON_TAG_NAME = "collapse-button"
 const GROUP_QUESTION_TAG_NAME = "group-question"
@@ -27,6 +28,7 @@ const TEST_MODE_INDICATOR_TAG_NAME = "test-mode-indicator"
 const THEME_TOGGLE_TAG_NAME = "theme-toggle";
 const RECOMMENDATION_CARD_GROUP_TAG_NAME = "recommendation-card-group"
 
+// Defining all of the custom web components
 window.customElements.define(ALERT_BOX_TAG_NAME, AlertBox);
 window.customElements.define(COLLAPSE_BUTTON_TAG_NAME, CollapseButton)
 window.customElements.define(GROUP_QUESTION_TAG_NAME, GroupQuestion);
@@ -37,7 +39,8 @@ window.customElements.define(TAB_SELECTOR_TAG_NAME, TabSelector);
 window.customElements.define(TAB_ROW_TAG_NAME, TabRow);
 window.customElements.define(TEST_MODE_INDICATOR_TAG_NAME, TestModeIndicator);
 window.customElements.define(THEME_TOGGLE_TAG_NAME, ThemeToggle);
-window.customElements.define(RECOMMENDATION_CARD_GROUP_TAG_NAME, RecommendationCardGroup);
+window.customElements.define(RECOMMENDATION_CARD_GROUP_TAG_NAME,
+                             RecommendationCardGroup);
 
 let storedAnswers: StoredAnswerObject[] = [];
 
@@ -51,13 +54,18 @@ let themes = {
     "light": getCssStringBySelector("#root-light"),
     "dark": getCssStringBySelector("#root-dark")
 }
-let flowDiagram = document.getElementById("flow-diagram") as any as HTMLObjectElement
-let devDiagram = document.getElementById("dev-diagram") as any as HTMLObjectElement
+
+// The SVG diagrams
+let flowDiagram = document.getElementById("flow-diagram") as any as
+HTMLObjectElement
+let devDiagram = document.getElementById("dev-diagram") as any as
+HTMLObjectElement
+
 let submitButton: HTMLElement
 
 let generateReportButton = document.getElementById("generate-report-button")
 
-
+// Returns the CSS rule that matches the given selector string 
 function getCssStringBySelector(selector: string) {
     try {
         let rules = document.styleSheets[0].cssRules as any
@@ -72,10 +80,13 @@ function getCssStringBySelector(selector: string) {
     return "";
 }
 
+// Clears the stored answers so that the questionnaire can be retaken
 function deleteAllAnswers() {
     storedAnswers = []
 }
 
+// Test function to automate filling the questionnaire randomly. Used to
+// rapidly test recommendation behaviour
 function doTestStuff() {
     deleteAllAnswers();
     showQuestions();
@@ -86,9 +97,11 @@ function doTestStuff() {
     }, 200);
 }
 
+// Causes the browser to "download" a file with the given name and contents
 function generateDownload(filename: string, fileContent: string) {
     let donwloadLink = document.createElement("a")
-    donwloadLink.setAttribute("href", "data:text/plain;charset=utf8, " + encodeURIComponent(fileContent))
+    donwloadLink.setAttribute("href", "data:text/plain;charset=utf8, " +
+                              encodeURIComponent(fileContent))
     donwloadLink.setAttribute("download", filename);
     document.body.appendChild(donwloadLink)
     donwloadLink.click()
@@ -96,21 +109,36 @@ function generateDownload(filename: string, fileContent: string) {
 
 }
 
+// Make the "Generate report" button actually generate a report file when
+// clicked
 generateReportButton.addEventListener("click", () => {
     let result = ""
-    let mainQuestions = document.querySelectorAll(`.${MAIN_QUESTION_DIV_CLASS}`) as NodeListOf<QuestionBase>
-    let groupQuestions = document.querySelectorAll(GROUP_QUESTION_TAG_NAME) as NodeListOf<GroupQuestion>
-    let recommendationCards = document.querySelectorAll(RECOMMENDATION_CARD_TAG_NAME) as NodeListOf<RecommendationCard>
+    let mainQuestions =
+        document.querySelectorAll(`.${MAIN_QUESTION_DIV_CLASS}`) as
+        NodeListOf<QuestionBase>
 
-    mainQuestions.forEach((i) => { result += i.generateReport() + "\n\n" })
-    groupQuestions.forEach((i) => { result += i.generateReport() + "\n\n" })
-    recommendationCards.forEach((i) => { result += i.generateReport() + "\n\n" })
+    let groupQuestions = document.querySelectorAll(GROUP_QUESTION_TAG_NAME) as
+        NodeListOf<GroupQuestion>
+
+    let recommendationCards =
+        document.querySelectorAll(RECOMMENDATION_CARD_TAG_NAME) as
+        NodeListOf<RecommendationCard>
+
+    mainQuestions.forEach(
+        function (i) {result += i.generateReport() + "\n\n";}
+    )
+    groupQuestions.forEach(
+        function (i) {result += i.generateReport() + "\n\n";}
+    )
+    recommendationCards.forEach(
+        function (i) {result += i.generateReport() + "\n\n";}
+    )
 
     generateDownload("report.txt", result)
-
-
 })
 
+// Adds a nested question to a checkbox / radio answer. Currently not
+// functional
 function addSubQuestion(element: HTMLLabelElement) {
     let newSubQuestion = new NestedQuestion(element)
     element.appendChild(newSubQuestion)
@@ -132,7 +160,9 @@ async function getTestQuestions() {
 
 function submit() {
     storedAnswers = []
-    let questionElementArray = document.getElementsByTagName(QUESTION_BASE_TAG_NAME) as HTMLCollectionOf<QuestionBase>
+    let questionElementArray =
+        document.getElementsByTagName(QUESTION_BASE_TAG_NAME) as
+    HTMLCollectionOf<QuestionBase>
     for (let question of questionElementArray) {
         for (let answer of question.getAnswers()) {
             storedAnswers.push(answer)
@@ -148,14 +178,12 @@ function showRecommendations() {
         recommendationArea.appendChild(newCardGroup)
     }
 
-    let recommendationTabSelector = document.getElementById("recommendation-tab" + TAB_SELECTOR_ID_SUFFIX) as TabSelector
+    let recommendationTabSelector = document.getElementById(
+            "recommendation-tab" + TAB_SELECTOR_ID_SUFFIX
+    ) as TabSelector
     recommendationTabSelector.select()
 }
 
-function getRecommendations() {
-    let result: RecommendationObject[] = [];
-
-}
 
 function scrollToAppDiv() {
     appDiv.scrollIntoView({
@@ -163,18 +191,8 @@ function scrollToAppDiv() {
     })
 }
 
-function sendAnswer(answer, target) {
-    let xhttp = new XMLHttpRequest()
 
-    // Must open before other functions
-    xhttp.open("POST", target)
-    xhttp.setRequestHeader("Authorization", "Basic " + btoa("1:" + token))
-    xhttp.setRequestHeader("Content-Type", "application/json")
-    xhttp.send(JSON.stringify(answer))
-
-}
-
-function storeAnswer(answer: SendableAnswerObject, qType?: QuestionType) {
+function storeAnswer(answer: SendableAnswerObject) {
     let result: StoredAnswerObject = {
         question: answer.question,
         choice: answer.choice
@@ -206,39 +224,48 @@ function testClicks() {
             let itemToClick = div.querySelector("input")
             if (itemToClick != undefined) {
                 // Only click unclicked
-                if (itemToClick.checked != undefined && itemToClick.checked === false) {
+                if (itemToClick.checked != undefined &&
+                    itemToClick.checked === false) {
                     itemToClick.click()
                 }
             }
         }
 
         // move on to group and nested questions
-        questionDivArray = document.querySelectorAll(`${SUB_QUESTION_TAG_NAME}, ${GROUP_QUESTION_TAG_NAME} fieldset`)
+        questionDivArray = document.querySelectorAll(
+            `${SUB_QUESTION_TAG_NAME}, ${GROUP_QUESTION_TAG_NAME} fieldset`)
 
     }
 
-    let subQuestionArray = document.getElementsByTagName(SUB_QUESTION_TAG_NAME) as HTMLCollectionOf<NestedQuestion>
+    let subQuestionArray = document.getElementsByTagName(
+        SUB_QUESTION_TAG_NAME)  as HTMLCollectionOf<NestedQuestion>;
+
     for (let div of subQuestionArray) {
-        randomFrom(div.querySelectorAll("input") as any).click()
+        randomFrom(div.querySelectorAll("input") as any).click();
     }
 }
 
 function enoughChecked() {
-    let questionElementArray = document.querySelectorAll("*") as NodeListOf<HTMLElement>
+    let questionElementArray = document.querySelectorAll(
+        "*") as NodeListOf<HTMLElement>;
+
     for (let q of questionElementArray) {
         if (q instanceof NestedQuestion || q instanceof QuestionBase) {
 
             let enoughHere = false
 
             // If the question is a checkbox question, allow zero choices
-            if (q instanceof QuestionBase && q.questionObject.type == "CHECKBOX") {
+            if (q instanceof QuestionBase && 
+                q.questionObject.type == "CHECKBOX") {
                 enoughHere = true
             }
 
-            let checkboxes = q.querySelectorAll("input") as NodeListOf<HTMLInputElement>
+            let checkboxes = q.querySelectorAll(
+                "input") as NodeListOf<HTMLInputElement>
             if (checkboxes.length > 0) {
                 for (let cb of checkboxes) {
-                    enoughHere = (cb.checked || cb.disabled || enoughHere || q.style.display == "none")
+                    enoughHere = (cb.checked || cb.disabled || enoughHere ||
+                                  q.style.display == "none")
                 }
                 if (enoughHere === false) {
                     console.log("Not enough checked")
@@ -259,7 +286,8 @@ async function showQuestions() {
     submitButton = createSubmitButton()
     for (let q of fetchedQuestions) {
         let questionElement = questionTemplate(q)
-        if (questionElement instanceof QuestionBase || questionElement instanceof GroupQuestion) {
+        if (questionElement instanceof QuestionBase || 
+            questionElement instanceof GroupQuestion) {
             questionElements.push(
                 questionElement
             )
@@ -272,13 +300,17 @@ async function showQuestions() {
     }
 
     // Get the checkboxes under question 1
-    let question1Checkboxes = document.querySelectorAll("#question1 input") as NodeListOf<HTMLInputElement>
+    let question1Checkboxes = document.querySelectorAll("#question1 input") as
+    NodeListOf<HTMLInputElement>
 
-    let apiCheckbox = document.getElementById(API_CHECKBOX_ID) as HTMLInputElement
+    let apiCheckbox = document.getElementById(API_CHECKBOX_ID) as
+    HTMLInputElement
 
     question1Checkboxes.forEach(function (e) {
         e.addEventListener("click", function () {
-            let allInputs = document.getElementsByTagName("input") as HTMLCollectionOf<HTMLInputElement>
+            let allInputs = document.getElementsByTagName("input") as
+            HTMLCollectionOf<HTMLInputElement>
+
             for (let cb of allInputs) {
                 if (isIn(cb, question1Checkboxes) == false) {
                     if (apiCheckbox.checked) {
@@ -308,8 +340,8 @@ async function showQuestions() {
 }
 
 
-
-function questionTemplate(questionObject: QuestionObject, isChildQuestion = false, reference = '') {
+// Generate a question element from a question object
+function questionTemplate(questionObject: QuestionObject) {
     if (questionObject.parent_group_question != undefined) {
         return undefined
     }
@@ -319,7 +351,8 @@ function questionTemplate(questionObject: QuestionObject, isChildQuestion = fals
     }
     else {
         mainDiv = new QuestionBase(questionObject)
-        if (questionObject.nested_type != undefined && questionObject.nested_type != "NONE") {
+        if (questionObject.nested_type != undefined &&
+            questionObject.nested_type != "NONE") {
             for (let label of mainDiv.querySelectorAll("label")) {
                 addSubQuestion(label)
             }
@@ -328,7 +361,7 @@ function questionTemplate(questionObject: QuestionObject, isChildQuestion = fals
     return mainDiv
 }
 
-function makeTooltip(text) {
+function makeTooltip(text: string) {
     let outputElement = document.createElement("span")
     outputElement.setAttribute("class", "tooltip")
     outputElement.innerText = text
@@ -372,24 +405,25 @@ function updateDiagram(diagram: HTMLObjectElement) {
 
     let bodyStyle = window.getComputedStyle(document.body)
     if (diagram.contentDocument.getElementById("gray") != undefined) {
-        diagram.contentDocument.getElementById("gray").style.fill = bodyStyle.getPropertyValue("--card-color")
+        diagram.contentDocument.getElementById("gray").style.fill =
+            bodyStyle.getPropertyValue("--card-color")
     }
 
     if (diagram.contentDocument.getElementById("gray") != undefined) {
-        diagram.contentDocument.getElementById("gray").style.stroke = bodyStyle.getPropertyValue("--dark-fg")
+        diagram.contentDocument.getElementById("gray").style.stroke =
+            bodyStyle.getPropertyValue("--dark-fg")
     }
 
 
     if (diagram.contentDocument.getElementById("cyan") != undefined) {
-        diagram.contentDocument.getElementById("cyan").style.fill = bodyStyle.getPropertyValue("--main-fg")
+        diagram.contentDocument.getElementById("cyan").style.fill =
+            bodyStyle.getPropertyValue("--main-fg")
     }
 
     if (diagram.contentDocument.getElementById("black") != undefined) {
-        diagram.contentDocument.getElementById("black").style.fill = bodyStyle.getPropertyValue("--text-color")
+        diagram.contentDocument.getElementById("black").style.fill =
+            bodyStyle.getPropertyValue("--text-color")
     }
-
-
-
 }
 
 function setTheme(themeName: theme) {
@@ -400,7 +434,8 @@ function setTheme(themeName: theme) {
     rootStyle.style.cssText = theme;
     updateDiagram(flowDiagram)
     updateDiagram(devDiagram)
-    for (let o of document.getElementsByTagName(COLLAPSE_BUTTON_TAG_NAME) as HTMLCollectionOf<CollapseButton>){
+    for (let o of document.getElementsByTagName(COLLAPSE_BUTTON_TAG_NAME) as
+         HTMLCollectionOf<CollapseButton>){
         o.updateColors()
     }
 }
@@ -417,10 +452,10 @@ function getLabel(input:HTMLInputElement){
 }
 
 async function main() {
-    flowDiagram.addEventListener("load", (e) => {
+    flowDiagram.addEventListener("load", (_e) => {
         updateDiagram(flowDiagram)
     })
-    devDiagram.addEventListener("load", (e) => {
+    devDiagram.addEventListener("load", (_e) => {
         updateDiagram(devDiagram)
     })
     fetchedQuestions = getQuestions()

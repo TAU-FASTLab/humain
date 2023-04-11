@@ -24,7 +24,8 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "rule": navigationOptionYESRule,
         "group_id":RecommendationGroupID.navigation,
-        "description":"Accessibility in navigation relates to whether a navigation menu/method is implemented, its visiblity, and how the users can access them throughout different UI screens.",      
+        "description":"Accessibility in navigation relates to whether a navigation menu/method is implemented, its visiblity, and how the users can access them throughout different UI screens.",
+
         "reason": "You chose \"yes\" for navigation"
     },
     {
@@ -291,7 +292,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "attribute": "Extra navigation feedback",
         "min_value": null,
         "max_value": null,
-        "extra_feedback": "\"Navigation should allow users to easily start (home screen), pause, restart and exit the AR/VR application.\"",
+        "extra_feedback": "Navigation should allow users to easily start (home screen), pause, restart and exit the AR/VR application.",
         "rule":ARVRCheckedRule
     },
     {
