@@ -18,6 +18,19 @@ class TestModeIndicator extends HTMLElement{
     }
 }
 
+class ButtonLike extends HTMLElement{
+    constructor(){
+        super();
+        this.setAttribute("role", "button");
+        this.setAttribute("tabindex", "0")
+        this.addEventListener("keydown", (e) =>{
+            console.log(e.key)
+            if (e.key == " " || e.key == "Enter") {
+                this.click();
+            }
+        })
+    }
+}
 
 class NestedQuestion extends HTMLElement {
     answers: Array<HTMLLabelElement>;
@@ -132,7 +145,7 @@ class NestedQuestion extends HTMLElement {
     }
 }
 
-class CollapseButton extends HTMLElement{
+class CollapseButton extends ButtonLike{
     collapseTarget:HTMLElement
     isCollapsed:boolean
     defaultDisplay:string
@@ -230,7 +243,7 @@ class CollapseButton extends HTMLElement{
 
 }
 
-class RecommendationLink extends HTMLElement {
+class RecommendationLink extends ButtonLike {
     rCard: RecommendationCard;
     p: HTMLParagraphElement;
     a: HTMLAnchorElement;
@@ -704,7 +717,7 @@ class AlertBox extends HTMLElement {
 //     }
 // }
 
-class ThemeToggle extends HTMLElement {
+class ThemeToggle extends ButtonLike {
     state: theme;
     width: number;
     padding: number;
@@ -1046,7 +1059,7 @@ class GroupQuestion extends HTMLElement {
 const TAB_SELECTOR_ID_SUFFIX = "_TAB"
 
 
-class TabSelector extends HTMLElement{
+class TabSelector extends ButtonLike{
     tabName:string;
     tabID:string;
     tabElement:HTMLElement;
