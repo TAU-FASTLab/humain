@@ -27,6 +27,8 @@ const TAB_SELECTOR_TAG_NAME = "tab-selector";
 const TEST_MODE_INDICATOR_TAG_NAME = "test-mode-indicator"
 const THEME_TOGGLE_TAG_NAME = "theme-toggle";
 const RECOMMENDATION_CARD_GROUP_TAG_NAME = "recommendation-card-group"
+const RECOMMENDATION_QUICK_LIST_TAG_NAME = "recommendation-quick-list"
+const RECOMMENDATION_LINK_TAG_NAME = "recommendation-link"
 
 // Defining all of the custom web components
 window.customElements.define(ALERT_BOX_TAG_NAME, AlertBox);
@@ -41,6 +43,9 @@ window.customElements.define(TEST_MODE_INDICATOR_TAG_NAME, TestModeIndicator);
 window.customElements.define(THEME_TOGGLE_TAG_NAME, ThemeToggle);
 window.customElements.define(RECOMMENDATION_CARD_GROUP_TAG_NAME,
                              RecommendationCardGroup);
+window.customElements.define(RECOMMENDATION_QUICK_LIST_TAG_NAME,
+                             RecommendationQuickList);
+window.customElements.define(RECOMMENDATION_LINK_TAG_NAME, RecommendationLink);
 
 let storedAnswers: StoredAnswerObject[] = [];
 

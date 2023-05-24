@@ -34,7 +34,8 @@ class NestedQuestion extends HTMLElement {
         this.answers = [];
         // console.log("dep",this.parentQuestion.questionObject);
         
-        this.dependencyID = `question${this.parentQuestion.questionObject.question_answer_dependency}`
+        this.dependencyID =
+            `question${this.parentQuestion.questionObject.question_answer_dependency}`
         for (let q of questionElements){
             if (q instanceof QuestionBase && q.id == this.dependencyID){
                 this.dependencyElement = q
@@ -229,6 +230,54 @@ class CollapseButton extends HTMLElement{
 
 }
 
+class RecommendationLink extends HTMLElement {
+    rCard: RecommendationCard;
+    p: HTMLParagraphElement;
+    a: HTMLAnchorElement;
+    constructor(){
+        super();
+        this.p = document.createElement("p") as any 
+        this.a = document.createElement("a") as any
+        this.appendChild(this.p)
+        this.p.appendChild(this.a)
+        this.style.width = "50%"
+        this.style.cursor = "pointer"
+        this.style.flex = "50%"
+        this.p.style.margin = "0.5em"
+
+        this.style.textDecoration = "underline"
+    }
+}
+
+class RecommendationQuickList extends HTMLElement {
+    recommendationLinks: RecommendationLink[];
+    constructor(){
+        super();
+        this.recommendationLinks = []
+        this.style.display = "flex";
+        this.style.flexWrap = "wrap"
+        
+        
+    }
+    addLink(rCard: RecommendationCard){
+        let newLink: RecommendationLink = new RecommendationLink();
+        newLink.rCard = rCard;
+        newLink.addEventListener("click", (e) => {
+            console.log("link clicked")
+            newLink.rCard.groupElement.collapseButton.setCollapsed(false);
+            newLink.rCard.scrollIntoView({
+                behavior: "smooth"
+            })
+
+        })
+        newLink.a.innerText = newLink.rCard.recommendation.attribute;
+        this.appendChild(newLink);
+        // this.innerHTML += "<br>"
+        this.recommendationLinks.push(newLink);
+
+    }
+}
+
 
 class RecommendationCardGroup extends HTMLElement{
     groupID:RecommendationGroupID;
@@ -277,18 +326,22 @@ class RecommendationCardGroup extends HTMLElement{
     addContent(){
         this.contentArea.innerHTML = "";
         this.cards = []
+        let qlist = document.querySelector(RECOMMENDATION_QUICK_LIST_TAG_NAME) as any as RecommendationQuickList
 
         for (let recommendation of RECOMMENDATIONS) {
-            let rule: ()=>recommendationRuleResult = recommendation.rule == undefined? apiNOTRule: recommendation.rule
+            let rule: ()=>recommendationRuleResult = recommendation.rule ==
+                undefined? apiNOTRule: recommendation.rule
             if (rule().is_true && this.groupID == recommendation.group_id) {
                 let newCard = new RecommendationCard(recommendation);
+                newCard.groupElement = this;
                 console.log(newCard)
                 console.log(recommendation)
 
                 this.contentArea.appendChild(newCard)
                 this.contentArea.appendChild(document.createElement("div"))
                 this.cards.push(newCard)
-
+                qlist.addLink(newCard)
+                
                 // newCard.moveToSide()
             }
         }
@@ -313,6 +366,7 @@ class RecommendationCard extends HTMLElement {
     headlineDivider:HTMLElement;
     descriptionBox:HTMLElement;
     reasonLine:HTMLElement;
+    groupElement: RecommendationCardGroup;
 
     constructor(recommendation: RecommendationObject) {
         super();
