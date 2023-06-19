@@ -289,6 +289,14 @@ class RecommendationQuickList extends HTMLElement {
         this.recommendationLinks.push(newLink);
 
     }
+
+    clearLinks(){
+        let currentLink: RecommendationLink = this.recommendationLinks.pop();
+        while (currentLink != undefined) {
+            currentLink.remove();
+            currentLink = this.recommendationLinks.pop()
+        }
+    }
 }
 
 
@@ -440,8 +448,9 @@ class RecommendationCard extends HTMLElement {
         minMaxRow.appendChild(
             document.createElement("td")
         )
-        if (this.minRuleApplies()){
 
+        // ONLY when minimum rule applies OR doesn't exist
+        if (this.minRuleApplies()){
             headerRow.lastElementChild.innerHTML = "Minimum"
             minMaxRow.lastElementChild.innerHTML = this.getMinValue()
         }

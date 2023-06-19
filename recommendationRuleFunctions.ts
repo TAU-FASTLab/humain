@@ -28,7 +28,7 @@ function apiCheckedRule(): recommendationRuleResult {
 function apiNOTRule(): recommendationRuleResult {
     let result: recommendationRuleResult = {
         is_true: !choiceCheckedOR([19]),
-        reason: "You did NOT choose API in question 1"
+        reason: ""
     }
     return result
 }
@@ -64,7 +64,7 @@ function NOTbasicSkillsAndLowExperienceRule():recommendationRuleResult{
 function accessibilityConsideredRule(): recommendationRuleResult{
     return {
         is_true: true,
-        reason:""
+        reason:"Accessibility is always an important aspect to consider when desgining HMI."
     }
 }
 

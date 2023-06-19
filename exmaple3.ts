@@ -177,7 +177,9 @@ function submit() {
 
 function showRecommendations() {
     let recommendationArea = document.getElementById("recommendation-area")
-    recommendationArea.innerHTML = ""
+    recommendationArea.innerHTML = "";
+    let qlist = document.querySelector(RECOMMENDATION_QUICK_LIST_TAG_NAME) as any as RecommendationQuickList
+    qlist.clearLinks()
     for (let i of [...Array(5).keys()]) {
         let newCardGroup = new RecommendationCardGroup(i)
         recommendationArea.appendChild(newCardGroup)
