@@ -261,6 +261,8 @@ class RecommendationLink extends ButtonLike {
 
         this.style.textDecoration = "underline"
         this.style.display = "inline-block"
+        this.style.verticalAlign = "text-top"
+        this.style.paddingBottom = "0.5em"
     }
 }
 
@@ -355,7 +357,6 @@ class RecommendationQuickList extends HTMLElement {
         header.innerText = sectionTitle
         header.style.margin = "0"
         header.style.boxSizing = "border-box"
-        // header.style.padding = "10px"
         header.style.lineHeight = "2em"
         mainel.appendChild(header)
         let list = document.createElement("ul")
