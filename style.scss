@@ -107,6 +107,10 @@ $dev-diag-margin: 5%;
     margin-bottom: $dev-diag-margin;
 }
 
+.outer-card{
+    @include outerCard();
+}
+
 recommendation-card {
     @include outerCard();
     background-color: var(--main-bg);

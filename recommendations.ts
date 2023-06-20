@@ -16,6 +16,7 @@ const RecommendationGroupNames = new Map<RecommendationGroupID, string>([
 
 
 const RECOMMENDATIONS: RecommendationObject[] = [
+    // NOTE: Is "relate" correct in these contexts, or should I use "refer"?
     {
         "id": 1,
         "attribute": "Accessibility in navigation",
@@ -24,7 +25,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "rule": navigationOptionYESRule,
         "group_id":RecommendationGroupID.navigation,
-        "description":"Accessibility in navigation relates to whether a navigation menu/method is implemented, its visiblity, and how the users can access them throughout different UI screens.",
+        "description":"Accessibility in navigation refers to whether a navigation menu/method is implemented, its visiblity, and how the users can access them throughout different UI screens.",
 
         "reason": "You chose \"yes\" for navigation"
     },
@@ -36,7 +37,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "rule": navigationOptionYESRule,
         "group_id":RecommendationGroupID.navigation,
-        "description":"Navigation levels relate to the function encompassed in different UI levels and how those levels are designed, which require the user to proceed to those level (e.g., selecting desired tab and clicking) for accessing the functionality. ",
+        "description":"Navigation levels refer to the function encompassed in different UI levels and how those levels are designed, which require the user to proceed to those level (e.g., selecting desired tab and clicking) for accessing the functionality. ",
         "reason": "You chose \"yes\" for navigation"
     },
     {
@@ -48,7 +49,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "rule": navigationOptionYESRule,
         "min_rule":NOTseniorsConsideredRule,
         "group_id":RecommendationGroupID.navigation,
-        "description":"Home menu availability relates to the availabiliy of a home menu and its visisbility throughout different UI screens.",
+        "description":"Home menu availability refers to the availabiliy of a home menu and its visisbility throughout different UI screens.",
         "reason": "You chose \"yes\" for navigation"
     },
     {
@@ -59,7 +60,8 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "rule": navigationOptionYESRule,
         "group_id":RecommendationGroupID.navigation,
-        "description":"In UIs with multiple navigation levels, the back option relates to whether the users have the possibility to select the back button to go to the previous sections.",
+        // "description":"In UIs with multiple navigation levels, the back option refers to whether the users have the possibility to select the back button to go to the previous sections.",
+        "description":"In UIs with multiple navigation levels, the back option is used to go to the previous sections.",
         "reason": "You chose \"yes\" for navigation"
     },
     {
@@ -70,7 +72,8 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "rule": navigationOptionYESRule,
         "group_id":RecommendationGroupID.navigation,
-        "description":"In UIs with multiple navigation levels, the exit option relates to whether the users have the possibility to select the exit button to close the current section.",
+        // "description":"In UIs with multiple navigation levels, the exit option relates to whether the users have the possibility to select the exit button to close the current section.",
+        "description":"In UIs with multiple navigation levels, the exit option is used to close the current section.",
         "reason": "You chose \"yes\" for navigation"
     },
     {
@@ -80,7 +83,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "Every screen should be clearly identified by a descriptive, unique and unambiguous title",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.visualAspects,
-        "description":"Screen identification relates to the identification of each screen and how the identifiers are formatted.",
+        "description":"Screen identification refers to the identification of each screen and how the identifiers are formatted.",
         "reason": ""
     },
     {
@@ -90,7 +93,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "The UI should have personalized aesthetics (icons, images) and aligned with the component objective",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.visualAspects,
-        "description":"Aesthetics relate to whether the UI elements are designed after or inspired by any particular objectives.",
+        "description":"Aesthetics refer to whether the UI elements are designed after or inspired by any particular objectives.",
         "reason": ""
     },
     {
@@ -111,7 +114,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "Information should be shown in the same way across all the screens",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.visualAspects,
-        "description":"Information shown relates to how information is presented to the users accross different UI screens.",
+        "description":"Information shown refers to how information is presented to the users accross different UI screens.",
         "reason": ""
     },
     {
@@ -121,7 +124,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "The text should be legible with an adequate size, line spacing and rich text features.",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.visualAspects,
-        "description":"Font relates to how the text has been positioned and formatted in the UI.",
+        "description":"Font refers to how the text has been positioned and formatted in the UI.",
         "reason": ""
     },
     {
@@ -134,7 +137,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "min_rule": NOTbasicSkillsAndLowExperienceRule,
         "rule": apiNOTRule,
         "group_id":RecommendationGroupID.visualAspects,
-        "description":"Tooltips relate to whether the UI provides any additional information to the user using tooltips.",
+        "description":"Tooltips refers to whether the UI provides any additional information to the user using tooltips.",
         "reason": "You did NOT choose API in question 1"
     },
     {
@@ -144,7 +147,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "The information and HMI elements should be logically grouped including a descriptive title.",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.visualAspects,
-        "description":"Info groups relate to how information and HMI elements are grouped.",
+        "description":"Info groups refer to how information and HMI elements are grouped.",
         "reason": ""
     },
     {
@@ -154,7 +157,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "The UI should offer universal and intuitive icons",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.visualAspects,
-        "description":"Pictorical information in elements relates to how the UI shows textual and visual information.",
+        "description":"Pictorical information in elements refers to how the UI shows textual and visual information.",
         "reason": ""
     },
     {
@@ -196,7 +199,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "rule":apiCheckedRule,
         "group_id":RecommendationGroupID.feedbackMessages,
-        "description":"Progress messages relate to the information/feedback the user may recieve regarding the state of a process and/or its estimated finishing time."
+        "description":"Progress messages refer to the information/feedback the user may recieve regarding the state of a process and/or its estimated finishing time."
     },
     {
         "id": 18,
@@ -205,7 +208,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "Users should have the ability to interact with the system through  natural input methods (e.g., gesture tracking, voice input)",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.inputAndInteraction,
-        "description":"Interaction devices relate the different interaction devices availbale to the user to interact with the system."
+        "description":"Interaction devices refer to the different interaction devices availbale to the user to interact with the system."
     },
     {
         "id": 19,
@@ -214,7 +217,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "max_value": "The UI design is adequate and there is a good/specific feedback regarding the selected actions (e.g., button colour change)",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.inputAndInteraction,
-        "description":"Fail-safe interaction design relates to whether the UI design provides any specific feedback to the user for selected actions."
+        "description":"Fail-safe interaction design refers to whether the UI design provides any specific feedback to the user for selected actions."
     },
     {
         "id": 20,
@@ -224,7 +227,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "rule": interactionIsBidirectionalRule,
         "group_id":RecommendationGroupID.inputAndInteraction,
-        "description":"Input format relate to whether the system provides any feedback regarding the format of the input data."
+        "description":"Input format refers to whether the system provides any feedback regarding the format of the input data."
     },
     {
         "id": 21,
@@ -235,7 +238,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "rule": interactionIsBidirectionalRule,
         "min_rule": NOTseniorsConsideredRule,
         "group_id":RecommendationGroupID.inputAndInteraction,
-        "description":"Exact numeric values relates to how the user can introduce numeric values to the system."
+        "description":"Exact numeric values refer to how the user can introduce numeric values to the system."
     },
     {
         "id": 22,
@@ -245,7 +248,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "rule":loginRequiredRule,
         "group_id":RecommendationGroupID.profiling,
-        "description":"Use of profiles relates to whether the system has a profile management mechanism and how the profiling can assign roles, functionalities, and previliages."
+        "description":"Use of profiles refers to whether the system has a profile management mechanism and how the profiling can assign roles, functionalities, and privileges."
     },
     {
         "id": 23,
@@ -255,7 +258,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "rule":accessibilityConsideredRule,
         "group_id":RecommendationGroupID.profiling,
-        "description":"Accessibility configuration relate to whether the users can configure accessibility parameters. "
+        "description":"Accessibility configuration refers to whether the users can configure accessibility parameters. "
     },
     {
         "id": 24,
@@ -265,7 +268,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "rule":loginRequiredRule,
         "group_id":RecommendationGroupID.profiling,
-        "description":"User's account relates to how the profile managment system handles user's login data recovery and profile data management options."
+        "description":"User's account refers to how the profile managment system handles user's login data recovery and profile data management options."
     },
     {
         "id": 25,
@@ -275,7 +278,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "group_id":RecommendationGroupID.profiling,
         "rule":apiNOTRule,
-        "description":"Customization relates to whether the menu is customizable and how configuration is shared between users."
+        "description":"Customization refers to whether the menu is customizable and how configuration is shared between users."
     },
     {
         "id": 26,
@@ -285,7 +288,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "group_id":RecommendationGroupID.profiling,
         "rule":apiNOTRule,
-        "description":"Languages relates to the available languages for the user to choose from and how they are configured."
+        "description":"Languages refer to the available languages for the user to choose from and how they are configured."
     },
     {
         "id": 27,

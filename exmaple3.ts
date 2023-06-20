@@ -49,7 +49,6 @@ window.customElements.define(RECOMMENDATION_LINK_TAG_NAME, RecommendationLink);
 
 let storedAnswers: StoredAnswerObject[] = [];
 
-let themeToggler = new ThemeToggle()
 
 let appDiv: HTMLDivElement = document.getElementById("app") as HTMLDivElement
 
@@ -69,6 +68,12 @@ HTMLObjectElement
 let submitButton: HTMLElement
 
 let generateReportButton = document.getElementById("generate-report-button")
+
+let themeToggler = new ThemeToggle()
+
+if (isLocalFile()) {
+    themeToggler.style.visibility = "none"
+}
 
 // Returns the CSS rule that matches the given selector string 
 function getCssStringBySelector(selector: string) {
@@ -163,7 +168,7 @@ async function getTestQuestions() {
     }
 }
 
-function submit() {
+function submit(): void {
     storedAnswers = []
     let questionElementArray =
         document.getElementsByTagName(QUESTION_BASE_TAG_NAME) as
@@ -175,7 +180,14 @@ function submit() {
     }
 }
 
-function showRecommendations() {
+function isLocalFile(): boolean {
+    if (window.location.protocol == "file:"){
+        return true;
+    }
+    return false
+}
+
+function showRecommendations(): void {
     let recommendationArea = document.getElementById("recommendation-area")
     recommendationArea.innerHTML = "";
     let qlist = document.querySelector(RECOMMENDATION_QUICK_LIST_TAG_NAME) as any as RecommendationQuickList
@@ -467,9 +479,12 @@ async function main() {
     })
     fetchedQuestions = getQuestions()
 
-    document.body.appendChild(
-        themeToggler
-    )
+    if (!isLocalFile() ){
+        document.body.appendChild(
+            themeToggler
+        )
+    }
+    
 
 }
 

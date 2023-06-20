@@ -60,7 +60,7 @@ class NestedQuestion extends HTMLElement {
         this.style.padding = "10px";
         // this.style.border = "2px solid black"
 
-        this.parentLabel.querySelector("input").addEventListener("input",(e)=>{
+        this.parentLabel.querySelector("input").addEventListener("input",(_e)=>{
             this.refreshAnswers()
         })
 
@@ -82,7 +82,7 @@ class NestedQuestion extends HTMLElement {
                 newLabel.innerHTML += depLabel.innerText
 
                 // Refresh this sub question every time one of the dependency inputs is clicked
-                depInput.addEventListener("input", (e)=>{
+                depInput.addEventListener("input", (_e)=>{
                     this.refreshAnswers()
                 })
 
@@ -174,10 +174,10 @@ class CollapseButton extends ButtonLike{
         }
         this.update()
         
-        this.addEventListener("click",(e)=>{
+        this.addEventListener("click",(_e)=>{
             this.toggle()
         })
-        this.icon.addEventListener("load", (e)=>{
+        this.icon.addEventListener("load", (_e)=>{
             this.update()
 
         })
@@ -224,7 +224,6 @@ class CollapseButton extends ButtonLike{
         let d = path.getAttribute("d").split(" ").map((e)=>{
             return e.split(",")
         })
-        console.log(d)
 
         if (mode == "flatten"){
             d[2][0] = d[1][0]
@@ -253,30 +252,68 @@ class RecommendationLink extends ButtonLike {
         this.a = document.createElement("a") as any
         this.appendChild(this.p)
         this.p.appendChild(this.a)
-        this.style.width = "50%"
+        // this.style.width = "50%"
         this.style.cursor = "pointer"
-        this.style.flex = "50%"
-        this.p.style.margin = "0.5em"
+        // this.style.flex = "10%"
+        this.p.style.margin = "0em"
+        // this.p.style.height = "1.5em"
+        this.p.style.lineHeight = "1.5em"
 
         this.style.textDecoration = "underline"
+        this.style.display = "inline-block"
     }
 }
 
 class RecommendationQuickList extends HTMLElement {
     recommendationLinks: RecommendationLink[];
+    sections: HTMLElement[];
+    columnCount: number;
     constructor(){
         super();
+        this.columnCount = 3;
         this.recommendationLinks = []
+        this.sections = []
         this.style.display = "flex";
         this.style.flexWrap = "wrap"
-        
-        
+        this.style.flexDirection = "column"
+
+        window.addEventListener("resize", (_e)=>{
+            console.log("window resized or zoomed")
+            this.updateSize()
+        })
+        // this.style.maxHeight = "500px"
     }
+
+    updateSize(){
+        let total = 0;
+        let maxH = 0;
+        let count = 0;
+        for (let e of this.children){
+            let h = e.getBoundingClientRect().height
+            count += 1
+            if (h > maxH){
+                maxH = h
+            }
+            // total += h
+            let cs = window.getComputedStyle(e)
+            total += parseFloat(cs.getPropertyValue("margin-top"));
+            total += parseFloat(cs.getPropertyValue("margin-bottom"));
+        }
+        total += maxH * count
+        this.style.height = `${total / this.columnCount}px`
+    }
+
     addLink(rCard: RecommendationCard){
+        if (this.sections.length <= 0){
+            return;
+        }
         let newLink: RecommendationLink = new RecommendationLink();
+        let lastSection = this.sections[this.sections.length - 1]
+        let list = lastSection.querySelector("ul")
+        let listItem = document.createElement("li")
+        newLink.style.boxSizing = "border-box"
         newLink.rCard = rCard;
-        newLink.addEventListener("click", (e) => {
-            console.log("link clicked")
+        newLink.addEventListener("click", (_e) => {
             newLink.rCard.groupElement.collapseButton.setCollapsed(false);
             newLink.rCard.scrollIntoView({
                 behavior: "smooth"
@@ -284,24 +321,47 @@ class RecommendationQuickList extends HTMLElement {
 
         })
         newLink.a.innerText = newLink.rCard.recommendation.attribute;
-        this.appendChild(newLink);
+        listItem.appendChild(newLink);
+        list.appendChild(listItem)
         // this.innerHTML += "<br>"
         this.recommendationLinks.push(newLink);
+        // this.updateSize()
+        setTimeout(()=>{
+            this.updateSize()
+        }, 200)
+        return newLink
 
+    }
+    addSection(sectionTitle: string){
+        let mainel = document.createElement("div")
+        mainel.style.padding = "1em"
+        mainel.style.margin = "0"
+        mainel.style.width = `${100/this.columnCount - 1}%`
+        mainel.style.boxSizing = "border-box"
+        let header = document.createElement("h4")
+        header.innerText = sectionTitle
+        header.style.margin = "0"
+        header.style.boxSizing = "border-box"
+        // header.style.padding = "10px"
+        header.style.lineHeight = "2em"
+        mainel.appendChild(header)
+        let list = document.createElement("ul")
+        mainel.appendChild(list)
+        this.appendChild(mainel)
+        this.sections.push(mainel)
+        return mainel
     }
 
     clearLinks(){
-        let currentLink: RecommendationLink = this.recommendationLinks.pop();
-        while (currentLink != undefined) {
-            currentLink.remove();
-            currentLink = this.recommendationLinks.pop()
-        }
+        this.recommendationLinks = []
+        this.sections = []
+        this.innerHTML = ""
     }
 }
 
 
 class RecommendationCardGroup extends HTMLElement{
-    groupID:RecommendationGroupID;
+    groupID:RecommendationGroupID
     groupName:string
     collapseButton: CollapseButton
     contentArea:HTMLElement
@@ -316,19 +376,24 @@ class RecommendationCardGroup extends HTMLElement{
 
         this.headlineBase = document.createElement("div")
         this.headlineBase.style.display = "flex"
-        // this.headlineBase.addEventListener("click", (e)=>{
-        //     this.collapseButton.click()
-        // })
-        // this.headlineBase.style.cursor = "pointer"
-
+        
         this.headlineTitle = document.createElement("h3")
         this.headlineTitle.innerHTML = RecommendationGroupNames.get(this.groupID)
         this.headlineBase.appendChild(this.headlineTitle)
         this.appendChild(this.headlineBase)
+        this.headlineTitle.addEventListener("click", (_e)=>{
+            this.collapseButton.click()
+        })
+        this.headlineTitle.style.cursor = "pointer"
+
 
         this.headlineDivider = document.createElement("div")
         this.headlineDivider.style.flexGrow = "1"
         this.headlineBase.appendChild(this.headlineDivider)
+        this.headlineDivider.addEventListener("click", (_e)=>{
+            this.collapseButton.click()
+        })
+        this.headlineDivider.style.cursor = "pointer"
 
         this.contentArea = document.createElement("div")
         this.appendChild(this.contentArea)
@@ -348,6 +413,7 @@ class RecommendationCardGroup extends HTMLElement{
         this.contentArea.innerHTML = "";
         this.cards = []
         let qlist = document.querySelector(RECOMMENDATION_QUICK_LIST_TAG_NAME) as any as RecommendationQuickList
+        let qlSectionTitle = qlist.addSection(this.headlineTitle.innerText)
 
         for (let recommendation of RECOMMENDATIONS) {
             let rule: ()=>recommendationRuleResult = recommendation.rule ==
@@ -355,8 +421,6 @@ class RecommendationCardGroup extends HTMLElement{
             if (rule().is_true && this.groupID == recommendation.group_id) {
                 let newCard = new RecommendationCard(recommendation);
                 newCard.groupElement = this;
-                console.log(newCard)
-                console.log(recommendation)
 
                 this.contentArea.appendChild(newCard)
                 this.contentArea.appendChild(document.createElement("div"))
@@ -368,6 +432,7 @@ class RecommendationCardGroup extends HTMLElement{
         }
         if (this.cards.length <=0){
             this.style.display = "none"
+            qlSectionTitle.style.display = "none"
         }
         else{
             this.style.display = "block"
@@ -804,7 +869,6 @@ class ThemeToggle extends ButtonLike {
         this.svgIcon.addEventListener("load", ()=>{
             const bodyStyle = window.getComputedStyle(document.body)
             const newColor = bodyStyle.getPropertyValue("--main-bg");
-            // console.log(newColor)
             this.svgIcon.contentDocument.getElementById("main-path").style.fill = newColor
         })
         
@@ -834,7 +898,6 @@ function createSubmitButton() {
     let alertBox = new AlertBox("Please answer all questions before proceeding")
     submitButton.appendChild(alertBox)
     submitButton.addEventListener("click", function () {
-        console.log("plimplom")
 
         if (enoughChecked()) {
             // deleteAllAnswers()
@@ -869,7 +932,6 @@ class QuestionBase extends HTMLElement{
         else{
             this.customName = customName
         }
-        // console.log(qObject);
         isMain = isMain == undefined?true:isMain
         this.questionObject = qObject;
         this.headLine = `${this.questionObject.id}. ${this.questionObject.text}`
@@ -972,7 +1034,6 @@ class GroupQuestion extends HTMLElement {
         this.questionObject = questionObject
         this.subTitles = []
         for (let q of questionElements){
-            // console.log(q,this.questionObject.question_answer_dependency);
             if (q != undefined && q.questionObject.id == this.questionObject.question_answer_dependency){
                 
                 if (q instanceof QuestionBase){
@@ -988,7 +1049,7 @@ class GroupQuestion extends HTMLElement {
         
         for (let input of this.dependencyElement.querySelectorAll("input")){
             if (getLabel(input).classList.contains(BASE_CHOICE_CLASS_NAME)){
-                input.addEventListener("input", (e)=>{
+                input.addEventListener("input", (_e)=>{
                     this.refreshQuestions()
                 })
             }
@@ -1117,7 +1178,7 @@ class TabSelector extends ButtonLike{
         
         // this.tabElement.style.transitionDelay = `display ${window.getComputedStyle(this).transitionDuration}`
         
-        this.addEventListener("click", (e)=>{
+        this.addEventListener("click", (_e)=>{
             this.select()
         })
         this.update()
