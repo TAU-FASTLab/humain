@@ -821,13 +821,15 @@ class ThemeToggle extends ButtonLike {
     state: theme;
     width: number;
     padding: number;
+    border: number;
     knob: HTMLElement;
     svgIcon: HTMLObjectElement;
-    stateIconPaths;
+    stateIconPaths: {[x: string]: string; light?: string; dark?: string;};
     constructor() {
         super();
         this.width = 30;
         this.padding = 3;
+        this.border = 3;
         this.state = "light";
         this.style.zIndex = "2";
         this.style.top = "30vh";
@@ -839,7 +841,7 @@ class ThemeToggle extends ButtonLike {
         this.style.height = `${this.width * 2}px`;
         this.style.border=`3px solid var(--dark-fg)`
         this.style.backgroundColor = "var(--main-bg)";
-        this.style.borderRadius = `${this.width/2 + this.padding}px`;
+        this.style.borderRadius = `${this.width/2 + this.border + this.padding}px`;
         this.style.cursor = "pointer"
 
         this.stateIconPaths = {
