@@ -284,10 +284,16 @@ class RecommendationQuickList extends HTMLElement {
         window.addEventListener("resize", (_e)=>{
             console.log("window resized or zoomed")
             this.updateSize()
+            setTimeout(()=>{
+                this.updateSize()
+            }, 200)
         })
         this.observer = new MutationObserver(
             (_mutations: MutationRecord[], _observer: MutationObserver) =>{
                 this.updateSize()
+                setTimeout(()=>{
+                    this.updateSize()
+                }, 200)
                 console.log("mutation observed")
             }
         )
@@ -302,20 +308,39 @@ class RecommendationQuickList extends HTMLElement {
     updateSize(){
         let total = 0;
         let maxH = 0;
-        let count = 0;
-        for (let e of this.children){
-            let h = e.getBoundingClientRect().height
-            count += 1
-            if (h > maxH){
-                maxH = h
+        let viableChildren: HTMLElement[] = [];
+        for (let elem of this.children) {
+            let cs = window.getComputedStyle(elem)
+            if (cs.getPropertyValue("display") != "none"){
+                viableChildren.push(elem as HTMLElement)
             }
-            // total += h
+        }
+        let count = viableChildren.length;
+        let i = 1;
+        let j = 1;
+        for (let e of viableChildren){
+            let h = e.getBoundingClientRect().height
+
+            // if (h > maxH){
+            //     maxH = h
+            // }
+            total += h
             let cs = window.getComputedStyle(e)
             total += parseFloat(cs.getPropertyValue("margin-top"));
             total += parseFloat(cs.getPropertyValue("margin-bottom"));
+            if (i == Math.ceil(count / (this.columnCount )) || j == count){
+                console.log(count)
+                i = 0;
+                if (total > maxH){
+                    maxH = total
+                }
+                total = 0
+            }
+            i += 1
+            j += 1
         }
-        total += maxH * count
-        this.style.height = `${total / this.columnCount}px`
+        // total += maxH * count
+        this.style.height = `${maxH + 5}px`
     }
 
     addLink(rCard: RecommendationCard){
@@ -351,7 +376,7 @@ class RecommendationQuickList extends HTMLElement {
         let mainel = document.createElement("div")
         mainel.style.padding = "1em"
         mainel.style.margin = "0"
-        mainel.style.width = `${100/this.columnCount - 1}%`
+        mainel.style.width = `${95/this.columnCount}%`
         mainel.style.boxSizing = "border-box"
         let header = document.createElement("h4")
         header.innerText = sectionTitle
