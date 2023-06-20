@@ -428,8 +428,20 @@ class RecommendationCardGroup extends HTMLElement{
         this.cards = []
         let qlist = document.querySelector(RECOMMENDATION_QUICK_LIST_TAG_NAME) as any as RecommendationQuickList
         let qlSectionTitle = qlist.addSection(this.headlineTitle.innerText)
+        let sortedRecommendations = RECOMMENDATIONS
+        sortedRecommendations.sort(
+            (a:RecommendationObject, b:RecommendationObject)=>{
+                if (a.attribute < b.attribute){
+                    return -1
+                }
+                if (a.attribute > b.attribute){
+                    return 1;
+                }
+                return 0;
+            }
+        )
 
-        for (let recommendation of RECOMMENDATIONS) {
+        for (let recommendation of sortedRecommendations) {
             let rule: ()=>recommendationRuleResult = recommendation.rule ==
                 undefined? apiNOTRule: recommendation.rule
             if (rule().is_true && this.groupID == recommendation.group_id) {
