@@ -268,6 +268,8 @@ class RecommendationQuickList extends HTMLElement {
     recommendationLinks: RecommendationLink[];
     sections: HTMLElement[];
     columnCount: number;
+    observer: MutationObserver;
+    observerConfig: MutationObserverInit;
     constructor(){
         super();
         this.columnCount = 3;
@@ -281,7 +283,18 @@ class RecommendationQuickList extends HTMLElement {
             console.log("window resized or zoomed")
             this.updateSize()
         })
-        // this.style.maxHeight = "500px"
+        this.observer = new MutationObserver(
+            (_mutations: MutationRecord[], _observer: MutationObserver) =>{
+                this.updateSize()
+                console.log("mutation observed")
+            }
+        )
+        this.observerConfig = {
+            attributes: true,
+            childList: true,
+            subtree: true 
+        }
+        this.observer.observe(document.body, this.observerConfig)
     }
 
     updateSize(){
