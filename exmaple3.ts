@@ -311,7 +311,7 @@ async function showQuestions() {
     document.getElementById("app").innerHTML = ""
     // let formContents = []
     submitButton = createSubmitButton()
-    for (let q of fetchedQuestions) {
+    for (let q of getQuestions()) {
         let questionElement = questionTemplate(q)
         if (questionElement instanceof QuestionBase || 
             questionElement instanceof GroupQuestion) {
@@ -477,24 +477,17 @@ function getLabel(input:HTMLInputElement){
     return result
 }
 
-async function main() {
-    flowDiagram.addEventListener("load", (_e) => {
-        updateDiagram(flowDiagram)
-    })
-    devDiagram.addEventListener("load", (_e) => {
-        updateDiagram(devDiagram)
-    })
-    fetchedQuestions = getQuestions()
+flowDiagram.addEventListener("load", (_e) => {
+    updateDiagram(flowDiagram)
+})
+devDiagram.addEventListener("load", (_e) => {
+    updateDiagram(devDiagram)
+})
+fetchedQuestions = getQuestions()
 
-    if (!isLocalFile() ){
-        document.body.appendChild(
-            themeToggler
-        )
-    }
-    
-
+if (!isLocalFile() ){
+    document.body.appendChild(
+        themeToggler
+    )
 }
-
-main();
-
 
