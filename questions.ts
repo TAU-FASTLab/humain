@@ -152,7 +152,8 @@ const QUESTIONS:QuestionObject[] = [
                 "id": 25,
                 "creation": "2022-03-02T10:13:31.406890Z",
                 "last_update": "2022-03-02T10:13:31.406921Z",
-                "text": "Head-up display (AR/VR)",
+                // NOTE: "Head-mounted Display" may be more correct
+                "text": "Heads-up display (AR/VR)",
                 "tooltip": null,
                 "question": 2
             },
@@ -315,8 +316,7 @@ const QUESTIONS:QuestionObject[] = [
         "last_update": "2022-03-02T10:28:21.537697Z",
         "type": "CHECKBOX",
         "nested_type": "NONE",
-        "text":
-            "At general level, please select the options that you want to consider from UX perspective",
+        "text": "At general level, please select the options that you want to consider from UX perspective",
         "order": 7,
         "question_answer_dependency": null,
         "parent_group_question": null
@@ -346,8 +346,7 @@ const QUESTIONS:QuestionObject[] = [
         "last_update": "2022-03-02T10:46:38.387737Z",
         "type": "RADIO",
         "nested_type": "NONE",
-        "text":
-            "Is there a navigation system to move through different interface elements?",
+        "text": "Is there a navigation system to move through different interface elements?",
         "order": 8,
         "question_answer_dependency": null,
         "parent_group_question": null
@@ -377,8 +376,7 @@ const QUESTIONS:QuestionObject[] = [
         "last_update": "2022-03-02T10:46:52.303244Z",
         "type": "RADIO",
         "nested_type": "NONE",
-        "text":
-            "Is the interaction bidirectional, meaning that the user can introduce information (e.g. text, number) in your application/service/product?",
+        "text": "Is the interaction bidirectional, meaning that the user can introduce information (e.g. text, number) in your application/service/product?",
         "order": 9,
         "question_answer_dependency": null,
         "parent_group_question": null

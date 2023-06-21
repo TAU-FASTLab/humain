@@ -17,6 +17,10 @@ const RecommendationGroupNames = new Map<RecommendationGroupID, string>([
 
 const RECOMMENDATIONS: RecommendationObject[] = [
     // NOTE: Is "relate" correct in these contexts, or should I use "refer"?
+    //
+    // NOTE: Should "component" be replaced with simply "software" or some
+    // other word? Not sure if "component" is used all that commonly
+    //
     {
         "id": 1,
         "attribute": "Accessibility in navigation",
@@ -43,7 +47,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     {
         "id": 3,
         "attribute": "Home menu availability",
-        "min_value": "Home menu should be available but can be not visible (e.g., accessible trough a shortcut or just with one click)",
+        "min_value": "Home menu should be available but may not be visible (e.g., accessible trough a shortcut or just with one click)",
         "max_value": "Home menu should always be available and visible from every screen",
         "extra_feedback": null,
         "rule": navigationOptionYESRule,
@@ -79,7 +83,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     {
         "id": 6,
         "attribute": "Screen identification",
-        "min_value": "Every screen should have a title, which can be undescriptive and ambiguous",
+        "min_value": "Every screen should have a title of some sort",
         "max_value": "Every screen should be clearly identified by a descriptive, unique and unambiguous title",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.visualAspects,
@@ -89,14 +93,16 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     {
         "id": 7,
         "attribute": "Aesthetics",
-        "min_value": "The UI should have personalized aesthetics (images, icons), which are not aligned with the component objective",
-        "max_value": "The UI should have personalized aesthetics (icons, images) and aligned with the component objective",
+        "min_value": "The UI should have personalized aesthetics (images, icons), which may not be aligned with the component objective",
+        "max_value": "The UI should have personalized aesthetics (images, icons), which are aligned with the component objective",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.visualAspects,
+        // NOTE: Is this description accurate?
         "description":"Aesthetics refer to whether the UI elements are designed after or inspired by any particular objectives.",
         "reason": ""
     },
     {
+        // NOTE: some confusing text
         "id": 8,
         "attribute": "HMI elements consistency",
         "min_value": "Some functionalities (e.g., transitions between windows) can use the same HMI element across the component",
@@ -109,6 +115,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     },
     {
         "id": 9,
+        // NOTE: confusing name?
         "attribute": "Information shown in a similar way",
         "min_value": "Information should mainly be shown in a similar way across the screens",
         "max_value": "Information should be shown in the same way across all the screens",
@@ -120,7 +127,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     {
         "id": 10,
         "attribute": "Fonts",
-        "min_value": "The text should be legible with an adequate size and line spacing (without rich text features like underlining or bold)",
+        "min_value": "The text should be legible with an adequate size and line spacing (with or without rich text features like underlining or bold)",
         "max_value": "The text should be legible with an adequate size, line spacing and rich text features.",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.visualAspects,
@@ -130,7 +137,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     {
         "id": 11,
         "attribute": "Tooltips",
-        "min_value": "Tooltips can only be available in the navigation menu.",
+        "min_value": "Tooltips may only be available in the navigation menu.",
         "max_value": "Tooltips should be available for all interactable HMI elements.",
         "extra_feedback": null,
         // "max_rule":basicSkillsAndLowExperienceRule,
@@ -143,7 +150,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     {
         "id": 12,
         "attribute": "Info groups",
-        "min_value": "The information and HMI elements should be logically grouped (wihout having a descriptive title)",
+        "min_value": "The information and HMI elements should be logically grouped (with or without having a descriptive title)",
         "max_value": "The information and HMI elements should be logically grouped including a descriptive title.",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.visualAspects,
@@ -152,6 +159,9 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     },
     {
         "id": 13,
+        // NOTE: "pictorical" is a real word, but an unusual one. If you Google
+        // its definition, Google asks you if you meant "pictorial", which
+        // seems to mean roughly the same
         "attribute": "Pictorical information in elements",
         "min_value": "The UI should offer visual/textual information",
         "max_value": "The UI should offer universal and intuitive icons",
@@ -174,12 +184,12 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     {
         "id": 15,
         "attribute": "Warning messages",
-        "min_value": "The warning message should be clear (without possibility of human intervention)",
-        "max_value": "The warning message should be clear and the process can be cancelled by the user",
+        "min_value": "The warning message should be clear (with or without possibility of human intervention)",
+        "max_value": "The warning message should be clear and the user should be able to cancel the process",
         "extra_feedback": null,
         "rule":apiCheckedRule,
         "group_id":RecommendationGroupID.feedbackMessages,
-        "description":"Warning messages alert the user of a condition that might cause a problem in the future"
+        "description":"Warning messages alert the user of a situation that might cause a problem in the future"
     },
     {
         "id": 16,
@@ -195,7 +205,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "id": 17,
         "attribute": "Progress messages",
         "min_value": "The UI should provide feedback that the system is working even though estimated time remaining for operations is not available.",
-        "max_value": "The UI should provide information about the operation's progress  and estimated  time remaining.",
+        "max_value": "The UI should provide information about the operation's progress and estimated time remaining.",
         "extra_feedback": null,
         "rule":apiCheckedRule,
         "group_id":RecommendationGroupID.feedbackMessages,
@@ -227,6 +237,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "rule": interactionIsBidirectionalRule,
         "group_id":RecommendationGroupID.inputAndInteraction,
+        // NOTE: confusing description?
         "description":"Input format refers to whether the system provides any feedback regarding the format of the input data."
     },
     {
@@ -283,7 +294,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     {
         "id": 26,
         "attribute": "Languages",
-        "min_value": "The component should support more than one language. Change is uniquely allowed when registering/logging in the component.",
+        "min_value": "The component should support more than one language. Change may be only allowed when registering/logging in the component.",
         "max_value": "The component should support more than one language, which can be changed in every screen.",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.profiling,
