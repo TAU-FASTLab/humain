@@ -14,7 +14,6 @@
         "./recommendations.ts",
         "./questions.ts",
         "./webcomponents.ts",
-        "./exmaple3.ts", 
-
+        "./exmaple3.ts"
     ]
 }

@@ -19,7 +19,8 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     // NOTE: Is "relate" correct in these contexts, or should I use "refer"?
     //
     // NOTE: Should "component" be replaced with simply "software" or some
-    // other word? Not sure if "component" is used all that commonly
+    // other word? Not sure if "component" is used all that commonly to refer
+    // to software 
     //
     {
         "id": 1,
@@ -41,6 +42,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
         "extra_feedback": null,
         "rule": navigationOptionYESRule,
         "group_id":RecommendationGroupID.navigation,
+        // NOTE: confusing phrasing
         "description":"Navigation levels refer to the function encompassed in different UI levels and how those levels are designed, which require the user to proceed to those level (e.g., selecting desired tab and clicking) for accessing the functionality. ",
         "reason": "You chose \"yes\" for navigation"
     },
@@ -104,7 +106,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     {
         // NOTE: some confusing text
         "id": 8,
-        "attribute": "HMI elements consistency",
+        "attribute": "HMI elements' consistency",
         "min_value": "Some functionalities (e.g., transitions between windows) can use the same HMI element across the component",
         "max_value": "A functionality should always use the same HMI element for user's interaction across the component",
         "extra_feedback": null,
@@ -184,7 +186,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     {
         "id": 15,
         "attribute": "Warning messages",
-        "min_value": "The warning message should be clear (with or without possibility of human intervention)",
+        "min_value": "The warning message should be clear (with or without the possibility of human intervention)",
         "max_value": "The warning message should be clear and the user should be able to cancel the process",
         "extra_feedback": null,
         "rule":apiCheckedRule,
@@ -204,7 +206,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     {
         "id": 17,
         "attribute": "Progress messages",
-        "min_value": "The UI should provide feedback that the system is working even though estimated time remaining for operations is not available.",
+        "min_value": "The UI should provide feedback that the system is working, even if estimated time remaining for a given operation is not available.",
         "max_value": "The UI should provide information about the operation's progress and estimated time remaining.",
         "extra_feedback": null,
         "rule":apiCheckedRule,
@@ -214,11 +216,12 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     {
         "id": 18,
         "attribute": "Interaction devices",
-        "min_value": "User should have the ability to interact directly with the system (e.g., tactile device)",
-        "max_value": "Users should have the ability to interact with the system through  natural input methods (e.g., gesture tracking, voice input)",
+        // NOTE: confusing
+        "min_value": "Users should have the ability to interact directly with the system (e.g., tactile device)",
+        "max_value": "Users should have the ability to interact with the system through natural input methods (e.g., gesture tracking, voice input)",
         "extra_feedback": null,
         "group_id":RecommendationGroupID.inputAndInteraction,
-        "description":"Interaction devices refer to the different interaction devices availbale to the user to interact with the system."
+        "description":"Interaction devices refer to the different interaction devices available to the user to interact with the system."
     },
     {
         "id": 19,
@@ -243,8 +246,8 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     {
         "id": 21,
         "attribute": "Exact numeric values",
-        "min_value": "The UI should enable the user to introduce numeric values via plus/minus buttons.",
-        "max_value": "The UI should enable the user to introduce numeric values via keyboard/numeric pads.",
+        "min_value": "The UI should let the user introduce numeric values via plus/minus buttons.",
+        "max_value": "The UI should let the user introduce numeric values via keyboard/numeric pads.",
         "extra_feedback": null,
         "rule": interactionIsBidirectionalRule,
         "min_rule": NOTseniorsConsideredRule,
@@ -254,8 +257,9 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     {
         "id": 22,
         "attribute": "Use of profiles",
-        "min_value": "The system should allows users' privileges (no profiles for specific roles)",
-        "max_value": "The system should allows the assigning of user and profile-based privileges.",
+        // NOTE: Good replacements for "allow"?
+        "min_value": "The system should allow users' privileges (no profiles for specific roles)",
+        "max_value": "The system should allow the assigning of user and profile-based privileges.",
         "extra_feedback": null,
         "rule":loginRequiredRule,
         "group_id":RecommendationGroupID.profiling,
@@ -264,7 +268,7 @@ const RECOMMENDATIONS: RecommendationObject[] = [
     {
         "id": 23,
         "attribute": "Accessibility configuration",
-        "min_value": "The system should allow the user configuration of accessibility parameters (configuration is shared between all users)",
+        "min_value": "The system should allow users to configure accessibility parameters (configuration is shared between all users)",
         "max_value": "The system should allow configuration of accessibility parameters that can be customized per user.",
         "extra_feedback": null,
         "rule":accessibilityConsideredRule,

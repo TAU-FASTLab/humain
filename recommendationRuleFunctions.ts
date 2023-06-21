@@ -1,7 +1,6 @@
 function choiceCheckedOR(choiceIDs: number[]): boolean {
     for (let a of storedAnswers) {
         if (choiceIDs.includes(a.choice)) {
-            console.log(a)
             return true;
         }
     }

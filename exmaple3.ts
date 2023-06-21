@@ -12,7 +12,7 @@ const Q1_ID_RANGE = {
 const QUESTION_DIV_CLASS = "questionDiv";
 const MAIN_QUESTION_DIV_CLASS = "mainQuestionDiv";
 const DEP_CHOICE_ATTNAME = "dep-choice";
-const TEST_MODE = true
+// const TEST_MODE = true
 
 // Tag names for all of the custom web components
 const ALERT_BOX_TAG_NAME = "alert-box";
@@ -67,7 +67,8 @@ HTMLObjectElement
 
 let submitButton: HTMLElement;
 
-let generateReportButton = document.getElementById("generate-report-button");
+let generateReportButton = document.getElementById("generate-report-button") as HTMLButtonElement
+let collapseAllButton = document.getElementById("collapse-all-button") as HTMLButtonElement
 
 let themeToggler = new ThemeToggle()
 
@@ -145,6 +146,12 @@ generateReportButton.addEventListener("click", () => {
     )
 
     generateDownload("report.txt", result)
+})
+
+collapseAllButton.addEventListener("click", ()=>{
+    for (let o of document.querySelectorAll(COLLAPSE_BUTTON_TAG_NAME)){
+       (o as CollapseButton).setCollapsed(true)
+    }
 })
 
 // Adds a nested question to a checkbox / radio answer. Currently not
@@ -400,7 +407,7 @@ function getStoredAnswers(type?: QuestionType): StoredAnswerObject[] {
     return result;
 }
 
-function checkboxQuestionHandler(questionElement: QuestionBase): any[] {
+function checkboxQuestionHandler(questionElement: QuestionBase): CheckboxAnswerObject[]{
     let answersToSend: CheckboxAnswerObject[] = []
     let questionID = questionElement.questionObject.id
     for (let checkbox of questionElement.querySelectorAll("input")) {
@@ -450,7 +457,6 @@ function setTheme(themeName: theme) {
     let rootStyle = document.styleSheets[0].cssRules[1] as any
     let theme = themes[themeName];
 
-    // console.log(rootStyle.style.cssText, theme)
     rootStyle.style.cssText = theme;
     updateDiagram(flowDiagram)
     updateDiagram(devDiagram)

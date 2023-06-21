@@ -14,7 +14,6 @@ class TestModeIndicator extends HTMLElement{
         this.style.fontFamily = "monospace"
         this.style.border = "2px solid black"
         this.innerHTML = "You are currently in debug mode. <br>This is intended for development purposes."
-
     }
 }
 
@@ -24,7 +23,6 @@ class ButtonLike extends HTMLElement{
         this.setAttribute("role", "button");
         this.setAttribute("tabindex", "0")
         this.addEventListener("keydown", (e) =>{
-            console.log(e.key)
             if (e.key == " " || e.key == "Enter") {
                 this.click();
             }
@@ -45,7 +43,6 @@ class NestedQuestion extends HTMLElement {
         this.parentLabel = parentLabel
         this.parentQuestion = this.parentLabel.parentElement.parentElement as any
         this.answers = [];
-        // console.log("dep",this.parentQuestion.questionObject);
         
         this.dependencyID =
             `question${this.parentQuestion.questionObject.question_answer_dependency}`
@@ -238,8 +235,6 @@ class CollapseButton extends ButtonLike{
     
 
     }
-
-
 }
 
 class RecommendationLink extends ButtonLike {
@@ -248,40 +243,42 @@ class RecommendationLink extends ButtonLike {
     a: HTMLAnchorElement;
     constructor(){
         super();
-        this.p = document.createElement("p") as any 
-        this.a = document.createElement("a") as any
-        this.appendChild(this.p)
-        this.p.appendChild(this.a)
-        // this.style.width = "50%"
-        this.style.cursor = "pointer"
-        // this.style.flex = "10%"
-        this.p.style.margin = "0em"
-        // this.p.style.height = "1.5em"
-        this.p.style.lineHeight = "1.5em"
+        this.p = document.createElement("p") as any;
+        this.a = document.createElement("a") as any;
+        this.appendChild(this.p);
+        this.p.appendChild(this.a);
+        this.style.cursor = "pointer";
+        this.p.style.margin = "0em";
+        this.p.style.lineHeight = "1.5em";
 
-        this.style.textDecoration = "underline"
-        this.style.display = "inline-block"
-        this.style.verticalAlign = "text-top"
-        this.style.paddingBottom = "0.5em"
+        this.style.textDecoration = "underline";
+        this.style.display = "inline-block";
+        this.style.verticalAlign = "text-top";
+        this.style.paddingBottom = "0.5em";
     }
 
     setTarget(t: RecommendationCard){
         this.rCard = t
+
         this.addEventListener("click", (_e) => {
             this.rCard.groupElement.collapseButton.setCollapsed(false);
             this.rCard.scrollIntoView({
                 behavior: "smooth"
             })
-            
-            // let cs = window.getComputedStyle(t)
-            let originalBorderStyle = t.style.border
-            this.rCard.style.border = "5px solid green"
-            // this.rCard.style.filter = "brightness(150%)"
+            let cs = window.getComputedStyle(t)
+            let originalShadowStyle = t.style.boxShadow;
+            let originalZIndex = cs.zIndex 
+            let scaleIncrementPercentage = 5
+            this.rCard.style.boxShadow = "2px 2px 10px var(--text-color)";
+            this.rCard.style.scale =
+                `${1 + (scaleIncrementPercentage/100)}`
+            console.log(this.rCard.style.scale)
+            this.rCard.style.zIndex = "99999"
             setTimeout(()=>{
-                this.rCard.style.border = originalBorderStyle
-                // this.rCard.style.filter = ""
+                this.rCard.style.boxShadow = originalShadowStyle;
+                this.rCard.style.scale = "1 1"
+                this.rCard.style.zIndex = originalZIndex
             }, 1000)
-
         })
         this.a.innerText = this.rCard.recommendation.attribute;
     }
@@ -295,15 +292,16 @@ class RecommendationQuickList extends HTMLElement {
     observerConfig: MutationObserverInit;
     constructor(){
         super();
-        this.columnCount = 4;
+        this.columnCount = 2;
         this.recommendationLinks = []
         this.sections = []
         this.style.display = "flex";
         this.style.flexWrap = "wrap"
         this.style.flexDirection = "column"
+        this.style.alignItems = "center"
+        this.style.alignContent = "center"
 
         window.addEventListener("resize", (_e)=>{
-            console.log("window resized or zoomed")
             this.updateSize()
             setTimeout(()=>{
                 this.updateSize()
@@ -315,7 +313,6 @@ class RecommendationQuickList extends HTMLElement {
                 setTimeout(()=>{
                     this.updateSize()
                 }, 200)
-                console.log("mutation observed")
             }
         )
         this.observerConfig = {
@@ -347,7 +344,6 @@ class RecommendationQuickList extends HTMLElement {
             total += parseFloat(cs.getPropertyValue("margin-top"));
             total += parseFloat(cs.getPropertyValue("margin-bottom"));
             if (i == Math.ceil(count / (this.columnCount )) || j == count){
-                console.log(count)
                 i = 0;
                 if (total > maxH){
                     maxH = total
@@ -359,7 +355,7 @@ class RecommendationQuickList extends HTMLElement {
         }
         this.style.height = `${maxH + 5}px`
         for (let section of this.sections){
-            section.style.width = `${95/this.columnCount}%`
+            section.style.width = `${95/this.columnCount}%`;
         }
     }
 
@@ -368,11 +364,11 @@ class RecommendationQuickList extends HTMLElement {
             return;
         }
         let newLink: RecommendationLink = new RecommendationLink();
-        let lastSection = this.sections[this.sections.length - 1]
-        let list = lastSection.querySelector("ul")
-        let listItem = document.createElement("li")
-        newLink.style.boxSizing = "border-box"
-        newLink.setTarget(rCard)
+        let lastSection = this.sections[this.sections.length - 1];
+        let list = lastSection.querySelector("ul");
+        let listItem = document.createElement("li");
+        newLink.style.boxSizing = "border-box";
+        newLink.setTarget(rCard);
         
         listItem.appendChild(newLink);
         list.appendChild(listItem)
@@ -384,31 +380,31 @@ class RecommendationQuickList extends HTMLElement {
 
     }
     addSection(sectionTitle: string){
-        let mainel = document.createElement("div")
-        mainel.style.padding = "0.5em"
-        mainel.style.margin = "0"
-        mainel.style.width = `${95/this.columnCount}%`
-        mainel.style.boxSizing = "border-box"
-        let header = document.createElement("h4")
-        header.innerText = sectionTitle
-        header.style.margin = "0"
-        header.style.boxSizing = "border-box"
-        header.style.lineHeight = "2em"
-        mainel.appendChild(header)
-        let list = document.createElement("ul")
-        mainel.appendChild(list)
-        this.appendChild(mainel)
-        this.sections.push(mainel)
-        return mainel
+        let mainel = document.createElement("div");
+        mainel.style.padding = "0.5em";
+        mainel.style.margin = "0";
+        mainel.style.width = `${95/this.columnCount}%`;
+        mainel.style.boxSizing = "border-box";
+        mainel.style.maxWidth = "fit-content"
+        let header = document.createElement("h4");
+        header.innerText = sectionTitle;
+        header.style.margin = "0";
+        header.style.boxSizing = "border-box";
+        header.style.lineHeight = "2em";
+        mainel.appendChild(header);
+        let list = document.createElement("ul");
+        mainel.appendChild(list);
+        this.appendChild(mainel);
+        this.sections.push(mainel);
+        return mainel;
     }
 
     clearLinks(){
-        this.recommendationLinks = []
-        this.sections = []
-        this.innerHTML = ""
+        this.recommendationLinks = [];
+        this.sections = [];
+        this.innerHTML = "";
     }
 }
-
 
 class RecommendationCardGroup extends HTMLElement{
     groupID:RecommendationGroupID
@@ -641,8 +637,6 @@ class RecommendationCard extends HTMLElement {
         }
     }
 
-    
-
     showDebugData() {
         let debugTable = document.createElement("table")
         debugTable.style.backgroundColor = "#ccc"
@@ -736,13 +730,10 @@ class AlertBox extends HTMLElement {
         this.style.top = 
             `-${this.getBoundingClientRect().height * (3 / 4)}px`
 
-        // console.log("show");
-        // console.log(this)
         setTimeout(() => {
             this.style.transitionDuration = "1000ms"
             this.style.visibility = "hidden"
             this.style.opacity = "0"
-            // console.log("hide");
         }, timeout);
     }
 }
@@ -766,7 +757,6 @@ class AlertBox extends HTMLElement {
 //         this.style.zIndex = "1";
 //         this.alertBox = new AlertBox("Login failed")
 //         this.createLoginBox();
-//         // console.log(this.usernameField)
 
 //     }
 //     createLoginBox() {
@@ -791,23 +781,19 @@ class AlertBox extends HTMLElement {
 //         let usernameLabel = document.createElement("p");
 //         usernameLabel.innerText = "Username:"
 //         this.loginBox.appendChild(usernameLabel)
-
 //         this.usernameField = document.createElement("input") as any as HTMLInputElement
 //         this.usernameField.type = "text"
 //         this.usernameField.style.height = `${this.textFieldHeight}px`
 //         this.usernameField.style.margin = "auto"
 //         this.loginBox.appendChild(this.usernameField)
-
 //         let passwordLabel = document.createElement("p");
 //         passwordLabel.innerText = "Password:"
 //         this.loginBox.appendChild(passwordLabel)
-
 //         this.passwordField = document.createElement("input") as any as HTMLInputElement
 //         this.passwordField.type = "password"
 //         this.passwordField.style.height = `${this.textFieldHeight}px`
 //         this.passwordField.style.margin = "auto"
 //         this.loginBox.appendChild(this.passwordField)
-
 //         this.submitButton = document.createElement("button") as any as HTMLButtonElement
 //         this.submitButton.type = "button";
 //         this.submitButton.style.gridColumnStart = "2";
@@ -823,10 +809,7 @@ class AlertBox extends HTMLElement {
 //         })
 //         this.loginBox.appendChild(this.submitButton)
 //     }
-
 //     fieldLogin(screen: LoginScreen) {
-//         // console.log(this.submitButton);
-
 //         let credentials = {
 //             username: screen.usernameField.value,
 //             password: screen.passwordField.value
@@ -838,8 +821,6 @@ class AlertBox extends HTMLElement {
 //                 }
 //                 else{
 //                     token = response.token
-//                     // console.log(response);
-    
 //                     getQuestions_OLD(token).then(
 //                         (value) => {
 //                             fetchedQuestions = value
@@ -847,7 +828,6 @@ class AlertBox extends HTMLElement {
 //                         }
 //                     )
 //                 }
-                
 //             }
 //         )
 //     }
@@ -1192,20 +1172,17 @@ class GroupQuestion extends HTMLElement {
 
 const TAB_SELECTOR_ID_SUFFIX = "_TAB"
 
-
 class TabSelector extends ButtonLike{
     tabName:string;
     tabID:string;
     tabElement:HTMLElement;
     selected:boolean;
     textElement:HTMLElement
-    // siblings:HTMLCollectionOf<TabSelector>
     constructor(tabID:string, tabName?:string){
         super()
         this.selected = false;
         this.tabID = tabID;
         this.id = this.tabID + TAB_SELECTOR_ID_SUFFIX
-        // this.style.paddingTop = "auto"
         this.style.border = "2px solid var(--dark-fg)"
         this.style.borderBottomWidth = "0px"
         this.style.borderRadius = "15px 15px 0px 0px"
@@ -1216,10 +1193,6 @@ class TabSelector extends ButtonLike{
         this.style.height = "100%"
         this.style.marginBottom = "-2px"
         this.style.marginLeft = "-2px"
-        // this.style.transition = "height 100ms"
-        // this.style.padding = "auto"
-        // this.style.textAlign = "center"
-        // this.style.verticalAlign="middle"
         this.style.position = "relative"
         this.style.zIndex = "1"
         if (tabName == undefined || tabName == ""){
@@ -1240,8 +1213,6 @@ class TabSelector extends ButtonLike{
         this.tabElement = document.getElementById(this.tabID)
         this.tabElement.style.zIndex = "2"
         
-        // this.tabElement.style.transitionDelay = `display ${window.getComputedStyle(this).transitionDuration}`
-        
         this.addEventListener("click", (_e)=>{
             this.select()
         })
@@ -1257,18 +1228,13 @@ class TabSelector extends ButtonLike{
             this.tabElement.style.opacity = "1"
             this.tabElement.style.left = "0%"
             this.style.backgroundColor = "var(--main-bg)"
-            // this.style.marginTop = "0px"
             this.style.height = "100%"
-
-            
         }
         else{
             this.tabElement.style.display = "none"
             this.tabElement.style.opacity = "0"
             this.style.backgroundColor = "transparent"
-            // this.style.marginTop = "10px"
             this.style.height = "80%"
-
         }
     }
     setSelect(state:boolean){
@@ -1312,4 +1278,3 @@ class TabRow extends HTMLElement{
         this.tabSelectors[0].select()
     }
 }
-
