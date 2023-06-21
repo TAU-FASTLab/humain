@@ -16,23 +16,23 @@ const TEST_MODE = true
 
 // Tag names for all of the custom web components
 const ALERT_BOX_TAG_NAME = "alert-box";
-const COLLAPSE_BUTTON_TAG_NAME = "collapse-button"
-const GROUP_QUESTION_TAG_NAME = "group-question"
+const COLLAPSE_BUTTON_TAG_NAME = "collapse-button";
+const GROUP_QUESTION_TAG_NAME = "group-question";
 const LOADING_ICON_CLASS_NAME = "loading-icon";
 const QUESTION_BASE_TAG_NAME = "question-base";
 const RECOMMENDATION_CARD_TAG_NAME = "recommendation-card";
 const SUB_QUESTION_TAG_NAME = "sub-question";
-const TAB_ROW_TAG_NAME = "tab-row"
+const TAB_ROW_TAG_NAME = "tab-row";
 const TAB_SELECTOR_TAG_NAME = "tab-selector";
-const TEST_MODE_INDICATOR_TAG_NAME = "test-mode-indicator"
+const TEST_MODE_INDICATOR_TAG_NAME = "test-mode-indicator";
 const THEME_TOGGLE_TAG_NAME = "theme-toggle";
-const RECOMMENDATION_CARD_GROUP_TAG_NAME = "recommendation-card-group"
-const RECOMMENDATION_QUICK_LIST_TAG_NAME = "recommendation-quick-list"
-const RECOMMENDATION_LINK_TAG_NAME = "recommendation-link"
+const RECOMMENDATION_CARD_GROUP_TAG_NAME = "recommendation-card-group";
+const RECOMMENDATION_QUICK_LIST_TAG_NAME = "recommendation-quick-list";
+const RECOMMENDATION_LINK_TAG_NAME = "recommendation-link";
 
 // Defining all of the custom web components
 window.customElements.define(ALERT_BOX_TAG_NAME, AlertBox);
-window.customElements.define(COLLAPSE_BUTTON_TAG_NAME, CollapseButton)
+window.customElements.define(COLLAPSE_BUTTON_TAG_NAME, CollapseButton);
 window.customElements.define(GROUP_QUESTION_TAG_NAME, GroupQuestion);
 window.customElements.define(QUESTION_BASE_TAG_NAME, QuestionBase);
 window.customElements.define(RECOMMENDATION_CARD_TAG_NAME, RecommendationCard);
@@ -50,9 +50,9 @@ window.customElements.define(RECOMMENDATION_LINK_TAG_NAME, RecommendationLink);
 let storedAnswers: StoredAnswerObject[] = [];
 
 
-let appDiv: HTMLDivElement = document.getElementById("app") as HTMLDivElement
+let appDiv: HTMLDivElement = document.getElementById("app") as HTMLDivElement;
 
-let questionElements: (QuestionBase | GroupQuestion)[] = []
+let questionElements: (QuestionBase | GroupQuestion)[] = [];
 
 let themes = {
     "light": getCssStringBySelector("#root-light"),
@@ -65,9 +65,9 @@ HTMLObjectElement
 let devDiagram = document.getElementById("dev-diagram") as any as
 HTMLObjectElement
 
-let submitButton: HTMLElement
+let submitButton: HTMLElement;
 
-let generateReportButton = document.getElementById("generate-report-button")
+let generateReportButton = document.getElementById("generate-report-button");
 
 let themeToggler = new ThemeToggle()
 
@@ -109,13 +109,13 @@ function doTestStuff() {
 
 // Causes the browser to "download" a file with the given name and contents
 function generateDownload(filename: string, fileContent: string) {
-    let donwloadLink = document.createElement("a")
-    donwloadLink.setAttribute("href", "data:text/plain;charset=utf8, " +
+    let downloadLink = document.createElement("a")
+    downloadLink.setAttribute("href", "data:text/plain;charset=utf8, " +
                               encodeURIComponent(fileContent))
-    donwloadLink.setAttribute("download", filename);
-    document.body.appendChild(donwloadLink)
-    donwloadLink.click()
-    document.body.removeChild(donwloadLink)
+    downloadLink.setAttribute("download", filename);
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
 
 }
 
@@ -257,7 +257,8 @@ function testClicks() {
     }
 
     let subQuestionArray = document.getElementsByTagName(
-        SUB_QUESTION_TAG_NAME)  as HTMLCollectionOf<NestedQuestion>;
+        SUB_QUESTION_TAG_NAME
+    ) as HTMLCollectionOf<NestedQuestion>;
 
     for (let div of subQuestionArray) {
         randomFrom(div.querySelectorAll("input") as any).click();

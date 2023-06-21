@@ -264,6 +264,27 @@ class RecommendationLink extends ButtonLike {
         this.style.verticalAlign = "text-top"
         this.style.paddingBottom = "0.5em"
     }
+
+    setTarget(t: RecommendationCard){
+        this.rCard = t
+        this.addEventListener("click", (_e) => {
+            this.rCard.groupElement.collapseButton.setCollapsed(false);
+            this.rCard.scrollIntoView({
+                behavior: "smooth"
+            })
+            
+            // let cs = window.getComputedStyle(t)
+            let originalBorderStyle = t.style.border
+            this.rCard.style.border = "5px solid green"
+            // this.rCard.style.filter = "brightness(150%)"
+            setTimeout(()=>{
+                this.rCard.style.border = originalBorderStyle
+                // this.rCard.style.filter = ""
+            }, 1000)
+
+        })
+        this.a.innerText = this.rCard.recommendation.attribute;
+    }
 }
 
 class RecommendationQuickList extends HTMLElement {
@@ -274,7 +295,7 @@ class RecommendationQuickList extends HTMLElement {
     observerConfig: MutationObserverInit;
     constructor(){
         super();
-        this.columnCount = 3;
+        this.columnCount = 4;
         this.recommendationLinks = []
         this.sections = []
         this.style.display = "flex";
@@ -321,9 +342,6 @@ class RecommendationQuickList extends HTMLElement {
         for (let e of viableChildren){
             let h = e.getBoundingClientRect().height
 
-            // if (h > maxH){
-            //     maxH = h
-            // }
             total += h
             let cs = window.getComputedStyle(e)
             total += parseFloat(cs.getPropertyValue("margin-top"));
@@ -339,8 +357,10 @@ class RecommendationQuickList extends HTMLElement {
             i += 1
             j += 1
         }
-        // total += maxH * count
         this.style.height = `${maxH + 5}px`
+        for (let section of this.sections){
+            section.style.width = `${95/this.columnCount}%`
+        }
     }
 
     addLink(rCard: RecommendationCard){
@@ -352,20 +372,11 @@ class RecommendationQuickList extends HTMLElement {
         let list = lastSection.querySelector("ul")
         let listItem = document.createElement("li")
         newLink.style.boxSizing = "border-box"
-        newLink.rCard = rCard;
-        newLink.addEventListener("click", (_e) => {
-            newLink.rCard.groupElement.collapseButton.setCollapsed(false);
-            newLink.rCard.scrollIntoView({
-                behavior: "smooth"
-            })
-
-        })
-        newLink.a.innerText = newLink.rCard.recommendation.attribute;
+        newLink.setTarget(rCard)
+        
         listItem.appendChild(newLink);
         list.appendChild(listItem)
-        // this.innerHTML += "<br>"
         this.recommendationLinks.push(newLink);
-        // this.updateSize()
         setTimeout(()=>{
             this.updateSize()
         }, 200)
@@ -374,7 +385,7 @@ class RecommendationQuickList extends HTMLElement {
     }
     addSection(sectionTitle: string){
         let mainel = document.createElement("div")
-        mainel.style.padding = "1em"
+        mainel.style.padding = "0.5em"
         mainel.style.margin = "0"
         mainel.style.width = `${95/this.columnCount}%`
         mainel.style.boxSizing = "border-box"

@@ -33,7 +33,7 @@ or follow the instructions below to build from source.
 2. Install **NodeJS** and **NPM** if they're not already installed
     - On Ubuntu: `sudo apt install nodejs npm`
 3. In the directory in which you've cloned this repository, run the following
-commands to compile scss to css and Typescript to Javascript:
+commands to compile SCSS to CSS and Typescript to Javascript:
     - `npx sass style.scss style.css`
     - `npx tsc`
 
